@@ -1,0 +1,11 @@
+@keyframes animate {
+  0% {
+    transform: rotate(20deg) scale(1.7);
+  }
+  50% {
+    transform: rotate(0deg) scale(1.7);
+  }
+  100% {
+    transform: rotate(-20deg) scale(1.7);
+  }
+} ;
