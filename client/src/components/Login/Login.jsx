@@ -20,10 +20,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let validation = /^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/;
-    if (data.email.match(validation)) {
-      console.log("valid  email");
-    }
+    console.log("done");
   };
 
   return (
