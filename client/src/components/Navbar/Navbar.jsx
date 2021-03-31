@@ -26,7 +26,9 @@ const Navbar = () => {
         <AiOutlineSearch className={classes.searchIcon} />
       </div>
 
-      <Link className={classes.icon}>Login</Link>
+      <Link to="/auth" className={classes.icon}>
+        Login
+      </Link>
     </nav>
   );
 };
