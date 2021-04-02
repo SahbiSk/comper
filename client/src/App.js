@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import ProductSection from "./components/ProductSection/ProductSection";
 import Login from "./components/Login/Login";
+import Footer from "./components/Footer/Footer";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
             <>
               <Navbar />
               <ProductSection {...props} />
+              <Footer />
             </>
           )}
         />
