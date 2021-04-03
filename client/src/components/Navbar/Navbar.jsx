@@ -4,13 +4,13 @@ import { AiOutlineSearch } from "react-icons/ai";
 import useStyles from "./styles";
 import { Link } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = (props) => {
   const classes = useStyles();
   const [value, setValue] = useState("type item here...");
 
   return (
     <nav className={classes.nav}>
-      <div className={classes.title}>
+      <div className={classes.title} onClick={() => props.history.push("/")}>
         <GiCampfire className={classes.logo} />
         <h1 className={classes.titleText}>Camper</h1>
       </div>

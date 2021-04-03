@@ -11,17 +11,25 @@ import useStyles from "./styles";
 import { AiFillLike, AiFillDislike } from "react-icons/ai";
 import "./styles.css";
 
-import { products } from "./data";
+import products from "./data";
 import Categories from "../Categories/Categories";
 
-const ProductSection = () => {
+const ProductSection = (props) => {
   const classes = useStyles();
   return (
     <div className={classes.mainContainer}>
       <Categories />
       <Grid container className={classes.container} spacing={3}>
         {products.map((el, i) => (
-          <Grid item key={i} xs={12} sm={6} md={4} lg={3}>
+          <Grid
+            item
+            key={i}
+            xs={12}
+            sm={6}
+            md={4}
+            lg={3}
+            onClick={() => props.history.push("/product/" + el.id)}
+          >
             <Card className={classes.card}>
               <CardMedia image={el.img} className={classes.cardMedia} />
               <CardContent className={classes.content}>
