@@ -18,6 +18,12 @@ export default makeStyles((theme) => ({
   },
   content: {
     minHeight: "80px",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  star: {
+    color: "yellow",
   },
   actions: {
     display: "flex",

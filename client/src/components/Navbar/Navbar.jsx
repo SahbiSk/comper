@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { GiCampfire } from "react-icons/gi";
-import { AiOutlineSearch } from "react-icons/ai";
+import { TextField } from "@material-ui/core";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import SearchIcon from "@material-ui/icons/Search";
 import useStyles from "./styles";
 import { Link } from "react-router-dom";
+import data from "../../components/ProductSection/data";
 
 const Navbar = (props) => {
   const classes = useStyles();
-  const [value, setValue] = useState("type item here...");
+  const [value, setValue] = useState();
+  console.log(value);
 
   return (
     <nav className={classes.nav}>
@@ -16,14 +20,28 @@ const Navbar = (props) => {
       </div>
 
       <div className={classes.searchBoxContainer}>
-        <input
-          onFocus={() => setValue(value === "type item here..." ? "" : value)}
-          onBlur={() => setValue(!value ? "type item here..." : value)}
-          className={classes.searchBox}
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
+        <Autocomplete
+          options={data}
+          getOptionLabel={(data) => data.name}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              onClick={() => console.log(params)}
+              label="Type item here..."
+              //variant="outlined"
+              className={classes.searchBox}
+            />
+          )}
+          onChange={(e) =>
+            setValue(data.filter((el) => e.target.innerHTML === el.name)[0])
+          }
         />
-        <AiOutlineSearch className={classes.searchIcon} />
+        <SearchIcon
+          className={classes.searchIcon}
+          onClick={() =>
+            value ? props.history.push(`/product/${value.id}`) : ""
+          }
+        />
       </div>
 
       <Link to="/auth" className={classes.icon}>

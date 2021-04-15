@@ -8,7 +8,12 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import useStyles from "./styles";
-import { AiFillLike, AiFillDislike } from "react-icons/ai";
+import {
+  AiFillLike,
+  AiFillDislike,
+  AiFillStar,
+  AiOutlineStar,
+} from "react-icons/ai";
 import "./styles.css";
 
 import products from "./data";
@@ -16,6 +21,13 @@ import Categories from "../Categories/Categories";
 
 const ProductSection = (props) => {
   const classes = useStyles();
+
+  const starGenerator = (likes, dislike) => {
+    let perc = (dislike * 100) / (likes + dislike);
+    console.log(Math.floor(perc));
+  };
+
+  starGenerator(45, 10);
   return (
     <div className={classes.mainContainer}>
       <Categories />
@@ -33,8 +45,17 @@ const ProductSection = (props) => {
             <Card className={classes.card}>
               <CardMedia image={el.img} className={classes.cardMedia} />
               <CardContent className={classes.content}>
-                <Typography variant="h5">{el.name} </Typography>
-                <Typography color="textSecondary">{el.content} </Typography>
+                <div>
+                  <Typography variant="h5">{el.name} </Typography>
+                  <Typography color="textSecondary">{el.content} </Typography>
+                </div>
+                <div>
+                  <AiFillStar className={classes.star} />
+                  <AiFillStar className={classes.star} />
+                  <AiFillStar className={classes.star} />
+                  <AiOutlineStar />
+                  <AiOutlineStar />
+                </div>
               </CardContent>
               <CardActions className={classes.actions}>
                 <div className={classes.like}>

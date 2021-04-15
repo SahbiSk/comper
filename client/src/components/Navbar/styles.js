@@ -28,27 +28,22 @@ export default makeStyles((theme) => ({
   },
 
   searchBoxContainer: {
-    background: "var(--color-blue-light)",
-    borderRadius: "50px",
-    width: "30vw",
+    display: "flex",
+    alignItems: "center",
+    borderRadius: "20px",
   },
   searchBox: {
-    borderRadius: "50px 0 0 50px",
-    outline: "none",
-    borderRight: "none",
-    height: "4.5vh",
-    width: "25vw",
-    paddingLeft: "10px",
-    "&:focus": {
-      border: " 2px solid var(--color-blue-light)",
-    },
+    width: "20vw",
+    borderRadius: "50px !important",
   },
 
   searchIcon: {
     cursor: "pointer",
+    background: "var(--color-blue-light)",
     color: "white",
+    height: "100%",
     transform: "translate(1vw,5px) scale(1.6) ",
-    height: "2.6vh",
+    height: "3.1vh",
     borderRadius: "0 50px 50px 0",
     transition: "0.2s",
     width: "3vw",

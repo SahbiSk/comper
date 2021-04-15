@@ -19,7 +19,7 @@ export default makeStyles((theme) => ({
     justifyContent: "space-around",
     borderTop: "1px solid rgba(0,0,0,0.2)",
   },
-  comment: { marginTop: "10px" },
+
   icon: {
     height: "100%",
     width: "50%",
