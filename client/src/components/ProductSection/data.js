@@ -22,7 +22,7 @@ for (let i = 0; i < 10; i++) {
     content: "content",
     like: 45,
     dislike: 10,
-    tags: i > 5 ? "land" : "beach",
+    tag: i > 5 ? "land" : "beach",
   });
 }
 

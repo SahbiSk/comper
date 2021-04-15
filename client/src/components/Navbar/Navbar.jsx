@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { GiCampfire } from "react-icons/gi";
 import { TextField } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
@@ -10,7 +10,19 @@ import data from "../../components/ProductSection/data";
 const Navbar = (props) => {
   const classes = useStyles();
   const [value, setValue] = useState();
-  console.log(value);
+  const [list, setList] = useState(data);
+
+  useEffect(() => {
+    if (localStorage.getItem("tag")) {
+      let tag = localStorage.getItem("tag");
+    }
+  }, []);
+
+  useEffect(() => {
+    if (value) {
+      localStorage.setItem("tag", value.tag);
+    }
+  }, [value]);
 
   return (
     <nav className={classes.nav}>
@@ -21,19 +33,18 @@ const Navbar = (props) => {
 
       <div className={classes.searchBoxContainer}>
         <Autocomplete
-          options={data}
-          getOptionLabel={(data) => data.name}
+          options={list}
+          getOptionLabel={(list) => list.name}
           renderInput={(params) => (
             <TextField
               {...params}
-              onClick={() => console.log(params)}
               label="Type item here..."
               //variant="outlined"
               className={classes.searchBox}
             />
           )}
           onChange={(e) =>
-            setValue(data.filter((el) => e.target.innerHTML === el.name)[0])
+            setValue(list.filter((el) => e.target.innerHTML === el.name)[0])
           }
         />
         <SearchIcon
