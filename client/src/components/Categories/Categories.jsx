@@ -11,50 +11,13 @@ import { GiSwimfins } from "react-icons/gi";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import useStyles from "./styles";
 import React, { useState } from "react";
+import data from "../ProductSection/data";
 
-const Categories = () => {
-  const categories = [
-    {
-      text: "text",
-      icon: <GiSwimfins />,
-    },
-    {
-      text: "text",
-      icon: <GiSwimfins />,
-    },
-    {
-      text: "text",
-      icon: <GiSwimfins />,
-    },
-    {
-      text: "text",
-      icon: <GiSwimfins />,
-    },
-    {
-      text: "text",
-      icon: <GiSwimfins />,
-    },
-    {
-      text: "text",
-      icon: <GiSwimfins />,
-    },
-    {
-      text: "text",
-      icon: <GiSwimfins />,
-    },
-    {
-      text: "text",
-      icon: <GiSwimfins />,
-    },
-    {
-      text: "text",
-      icon: <GiSwimfins />,
-    },
-    {
-      text: "text",
-      icon: <GiSwimfins />,
-    },
-  ];
+const Categories = ({ category, setCategory }) => {
+  let categories = [...new Set(data.map((el) => el.tag))].map((el) => ({
+    text: el,
+  }));
+
   const classes = useStyles();
   const [show, setShow] = useState(false);
 
@@ -66,7 +29,10 @@ const Categories = () => {
             transform: `${show ? "rotate(-180deg)" : ""} scale(2)`,
           }}
           className={classes.slideIcon}
-          onClick={() => setShow(!show)}
+          onClick={() => {
+            setShow(!show);
+            setCategory("");
+          }}
         />
       </Icon>
       <Slide direction="right" in={show}>
@@ -78,12 +44,13 @@ const Categories = () => {
               alignItems="flex-start"
               divider
               className={classes.listItem}
+              onClick={() => setCategory(el.text)}
             >
-              <ListItemIcon className={classes.itemIcon}>
+              {/** <ListItemIcon className={classes.itemIcon}>
                 {el.icon}
-              </ListItemIcon>
+              </ListItemIcon> */}
               <ListItemText className={classes.itemText}>
-                <Typography variant="h6" > {el.text}</Typography>
+                <Typography variant="h6"> {el.text}</Typography>
               </ListItemText>
             </ListItem>
           ))}

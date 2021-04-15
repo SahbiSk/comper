@@ -6,6 +6,7 @@ export default makeStyles((theme) => ({
     color: "var(--color-blue-light)",
     borderRight: " 1px solid var(--color-blue-light)",
     width: "15vw",
+    marginRight: "2vw",
   },
   slideIcon: {
     zIndex: "99",

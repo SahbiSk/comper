@@ -8,7 +8,6 @@ const SuggestionsList = () => {
   const classes = useStyles();
   const tag = localStorage.getItem("tag");
   const filteredList = data.filter((el) => el.tag === tag).slice(0, 4);
-  console.log(filteredList);
 
   return (
     <div className={classes.recommandedSection}>

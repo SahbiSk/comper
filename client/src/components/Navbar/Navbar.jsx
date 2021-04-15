@@ -13,9 +13,7 @@ const Navbar = (props) => {
   const [list, setList] = useState(data);
 
   useEffect(() => {
-    if (localStorage.getItem("tag")) {
-      let tag = localStorage.getItem("tag");
-    }
+    setList(data);
   }, []);
 
   useEffect(() => {
