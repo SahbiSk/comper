@@ -15,7 +15,6 @@ import {
   AiOutlineStar,
 } from "react-icons/ai";
 import "./styles.css";
-
 import products from "./data";
 import Categories from "../Categories/Categories";
 

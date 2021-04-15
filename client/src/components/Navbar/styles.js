@@ -41,7 +41,6 @@ export default makeStyles((theme) => ({
     cursor: "pointer",
     background: "var(--color-blue-light)",
     color: "white",
-    height: "100%",
     transform: "translate(1vw,5px) scale(1.6) ",
     height: "3.1vh",
     borderRadius: "0 50px 50px 0",
