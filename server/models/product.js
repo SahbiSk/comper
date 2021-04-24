@@ -16,19 +16,12 @@ comment:
 }
 ,
 like:
-{
-
-    type:Number,
-    default:0
-}
+[{type:mongoose.Schema.Types.ObjectId,ref:'User'}]
 ,
 
 dislike:
-{
-    type:Number,
-    default:0
+[{type:mongoose.Schema.Types.ObjectId,ref:'User'}]
 
-}
 }
 
 ,
@@ -60,28 +53,21 @@ rating:{
     type:Number,
     min: 1,
     max: 5,
-    required: true
+    
 },
 
 
-like:{
-
-    type:Number,
-    default:0
-}
+like:[{type:mongoose.Schema.Types.ObjectId,ref:'User'}]
 ,
 
-dislike:
-{
-    type:Number,
-    default:0
+dislike:[{type:mongoose.Schema.Types.ObjectId,ref:'User'}]
+,
 
-},
 
 images: 
 {
     type: [String],  
-    required:true
+    default:''
 },
 price:
 {
