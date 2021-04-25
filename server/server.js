@@ -51,9 +51,9 @@ app.get('/',(req, res) => {
  
 })
 
-
+app.use('/products',require('./routes/products'))
 app.use('/users',require('./routes/users'))
-app.use('/products',product)
+app.use('/favourites',require('./routes/favourites'))
 
 
 

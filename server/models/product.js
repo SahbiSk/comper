@@ -53,6 +53,7 @@ rating:{
     type:Number,
     min: 1,
     max: 5,
+  
     
 },
 
@@ -64,11 +65,8 @@ dislike:[{type:mongoose.Schema.Types.ObjectId,ref:'User'}]
 ,
 
 
-images: 
-{
-    type: [String],  
-    default:''
-},
+images: [String]
+,
 price:
 {
  type:Number,
