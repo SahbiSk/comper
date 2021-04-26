@@ -115,10 +115,3 @@ exports.logOut=(req,res)=>{
                       
    
   
-  
-
-
-   
-
-
-    
