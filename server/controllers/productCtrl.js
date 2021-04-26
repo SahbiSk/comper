@@ -18,7 +18,7 @@ const handleError=(err)=>
 
 exports.addProd=(req,res,next)=>
 {
-    console.log("fsdfs")
+   
     let img=[]
 
     if (req.files){
