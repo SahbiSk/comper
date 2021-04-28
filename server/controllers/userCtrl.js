@@ -9,8 +9,8 @@ let errors={email:'',password:'',username:''}
 const handleError=(err)=>
 {
    if(err.message.includes("User validation failed"))
-   console.log(err.errors)
-   Object.values(err.errors).forEach((error)=>
+   //console.log(err.errors)
+    Object.values(err.errors).forEach((error)=>
    {
     errors[error.properties.path]=error.properties.message
    })
