@@ -40,12 +40,33 @@ exports.addProd=(req,res,next)=>
 }
 
 
-exports.getProd=(req,res)=>
+
+exports.getProd=async(req,res)=>
 {
-    product.find({}).then((doc)=>doc.forEach((prod)=>{prod.rating=calculRating(prod.like.length,prod.dislike.length)
-        prod.save().then(rslt=>console.log(rslt)).catch(err=>res.send(err))}), product.find({}).then(prods=>res.status(201).json(prods)).catch(err=>res.status(403).send(err))
-    .catch(err=>res.status(403).send(err)))
-  
+
+    try {
+
+            let docs=await product.find()
+            if (docs)
+            
+                docs.forEach(async(prod)=>
+                {
+                
+                    prod.rating=calculRating(prod.like.length,prod.dislike.length)
+                    let res=await prod.save()
+
+                })
+            
+                console.log(docs)
+            return res.status(201).json(docs)
+        
+    }
+    
+  catch(err)
+    {
+        res.status(403).send(err)
+    }
+
 }
 
 exports.like=async(req,res)=>
@@ -135,7 +156,17 @@ catch(err)
 
 calculRating=(nbLike,nbDislike)=>
 {
+
+    let rating
+
+    if(nbLike===0 && nbDislike===0)
+    rating=0
+    else
+    {
     let rate=((nbLike/(nbLike+nbDislike))*100)/20
-    let rating=Math.round(rate)
+    rating =Math.round(rate)
+    }
+
+    
     return rating
 }
