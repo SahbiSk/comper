@@ -54,7 +54,8 @@ exports.signUp=(req,res,next)=>
              // generating jwt and store it in cookie
       const token=jwt.sign({id:rslt._id,},config.secretKey,{ expiresIn: '24h' }) // in s
       
-  res.cookie('jwt',token,{httpOnly:true,maxAge: 360000}).status(200).json({userId:rslt._id,token:token})
+     /*res.cookie('jwt',token,{httpOnly:true,maxAge: 360000})*/
+       res.status(200).json({userId:rslt._id,token:token})
 
               })
 
@@ -87,7 +88,8 @@ exports.signIn=(req,res,next)=>
       // generating jwt and store it in cookie
       const token=jwt.sign({userId:user._id,},config.secretKey,{ expiresIn: '24h' }) // in s
       
-      res.cookie('jwt',token,{httpOnly:true,maxAge: 360000}) // in ms
+      //res.cookie('jwt',token,{httpOnly:true,maxAge: 360000}) // in ms
+     
       res.status(200).json({userId:user._id,token:token})
 
 

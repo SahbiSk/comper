@@ -48,6 +48,7 @@ exports.addFavorite=(req,res)=>
 
 exports.getFavourite=(req,res)=>
 {
+    console.log(req.cookies.cart)
     user.findById(req.user._id).then((usr)=>{
         if(usr)
         {
@@ -84,28 +85,16 @@ exports.deleteOne=(req,res)=>
                  return res.status(401).json({message:'cannot be deleted ! the product: '+p.name+' with ID:'+p._id+' is not in your wishlist'})
             
                  else
-                {
-                    let index=usr.wishlist.indexOf(p._id)
-                    let tmp
-
-                if    (index==usr.wishlist.length-1)
-
-                        usr.wishlist.pop()
-                else
-                {
-                    tmp=usr.wishlist[index]
-                    usr.wishlist[index]= usr.wishlist[usr.wishlist.length-1]
-                    usr.wishlist[usr.wishlist.length-1]=tmp
-                    usr.wishlist.pop()
-                }
-             
+                    {
+                        usr.wishlist.splice(index,1)
+                    }
                  usr.save().then((saved)=>res.status(201).json(saved)).catch(err=>res.status(403).json({err}))
 
                 }
          
              
                  
-             }
+             
  
          }).catch(err=>res.status(404).json({err:err}))
  
@@ -129,17 +118,16 @@ exports.deleteOne=(req,res)=>
          
          {
             
-             if (usr.wishlist.length==0 )
+             if (usr.wishlist.length===0 )
         
              return res.status(401).json({message:'your wishit is Empty'})
         
              else
             {
            
-           for(i=usr.wishlist.length;i>=0;i--)
-           {
-                usr.wishlist.pop()
-           }
+          
+            usr.wishlist.splice(0, usr.wishlist.length)
+           
             console.log(usr.wishlist)
              usr.save().then((saved)=>res.status(201).json(saved)).catch(err=>res.status(403).json({err}))
 

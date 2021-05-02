@@ -11,6 +11,9 @@ const product=require('./routes/products')
 const upload=require('./middlewares/multerConfig')
 
 
+app.use(cookieParser());
+
+
 
 const port = 3000
 const mongoose=require('mongoose')
@@ -45,7 +48,7 @@ connect.then((db)=>{
 
 app.get('/',(req, res) => {
 
- 
+
   res.send('hello world')
  
  

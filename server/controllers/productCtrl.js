@@ -51,13 +51,17 @@ exports.getProd=async(req,res)=>
             
                 docs.forEach(async(prod)=>
                 {
-                
+                   
+                    prod.comments.sort((a,b)=>
+                     {
+                        return Math.max(b.dislike.length,b.like.length) - Math.max(a.dislike.length,a.like.length)
+                      })
                     prod.rating=calculRating(prod.like.length,prod.dislike.length)
                     let res=await prod.save()
 
                 })
             
-                console.log(docs)
+               console.log(docs)
             return res.status(201).json(docs)
         
     }
@@ -69,10 +73,12 @@ exports.getProd=async(req,res)=>
 
 }
 
+
+
 exports.like=async(req,res)=>
 {
    
-    let tmp
+    
  try
  {
     let prod=await product.findById(req.params.prodID)
@@ -85,11 +91,7 @@ exports.like=async(req,res)=>
         if(prod.dislike.indexOf(req.user._id)>=0) /*check if disliked then remove the dislike */
         {
             let index=prod.dislike.indexOf(req.user._id)
-
-            tmp=prod.dislike[index]
-            prod.dislike[index]= prod.dislike[prod.like.length-1]
-            prod.dislike[prod.dislike.length-1]=tmp
-            prod.dislike.pop()
+            prod.dislike.splice(index,1)
         }
 
         prod.like.push(req.user._id)
@@ -113,7 +115,7 @@ exports.like=async(req,res)=>
 
 exports.dislike=async(req,res)=>
 {
-    let tmp
+    
  try
  {
     let prod=await product.findById(req.params.prodID)
@@ -127,30 +129,26 @@ exports.dislike=async(req,res)=>
         {
             let index=prod.like.indexOf(req.user._id)
 
-            tmp=prod.like[index]
-            prod.like[index]= prod.like[prod.like.length-1]
-            prod.like[prod.like.length-1]=tmp
-            prod.like.pop()
+            prod.like.splice(index,1)
         }
 
         prod.dislike.push(req.user._id)
 
         let produit = await prod.save()
         if (produit) return res.status(201).json(produit)
-
-  
-        
+      
 
     }
 
  
-
 }
    
 catch(err)
 {
     res.status(403).json({message:'product not found'})
 }
+
+
 }
 
 

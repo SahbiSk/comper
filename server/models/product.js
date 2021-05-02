@@ -74,12 +74,7 @@ price:
  type:Number,
  required:true
 },
-quantity:
-{
-    type:Number,
-    default:1
-}
-,
+
 tag:
 {
     type:String,
