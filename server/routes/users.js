@@ -3,6 +3,7 @@ const userRouter=express.Router()
 const userCtrl=require('../controllers/userCtrl')
 
 
+
 const upload=require('../middlewares/multerConfig')
 
 /*Returns middleware that processes a single file

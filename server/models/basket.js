@@ -3,12 +3,14 @@ const Schema=mongoose.Schema;
 
 
 const basketSchema=new Schema({
-    items:[{type:mongoose.Schema.Types.ObjectId,ref:'Product'}],
-    tottalPrice:{
-        type:Number,
-        default:0
-    }
-})
+
+    cart:{type:Object,required :true},
+    customer:{type:mongoose.Types.ObjectId,ref:'User'},
+    email:{type:String,requried:true}
+
+
+                            })
+
 
 const basket=mongoose.model('Basket',basketSchema)
 

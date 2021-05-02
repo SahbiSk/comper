@@ -41,6 +41,12 @@ avatar:
 
 wishlist:[{type: mongoose.Schema.Types.ObjectId, ref: 'Product'}],
 
+totalPnts :
+{
+    type:Number,
+    default:0
+}
+
 });
 
 

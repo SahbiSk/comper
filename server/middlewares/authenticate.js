@@ -7,8 +7,8 @@ module.exports=async (req,res,next)=>
 
 let token
 
-/*(req.cookies.jwt) undifiened*/
-if(req.cookies)
+
+if(req.cookies.jwt)
 token=req.cookies.jwt
 else if(req.headers.authorization && req.headers.authorization.startsWith('Bearer'))
 
