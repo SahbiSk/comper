@@ -43,28 +43,23 @@ exports.addProd=(req,res,next)=>
 
 exports.getProd=async(req,res)=>
 {
+    
 
     try {
 
-            let docs=await product.find()
-            if (docs)
+           await product.find().populate('owner','username avatar')
+           .then((docs)=>{
+               res.status(201).json(docs)
+             
+           })
+           .catch((err)=>console.log(err))
+          
+               
+          
+       }
+                    
+          
             
-                docs.forEach(async(prod)=>
-                {
-                   
-                    prod.comments.sort((a,b)=>
-                     {
-                        return Math.max(b.dislike.length,b.like.length) - Math.max(a.dislike.length,a.like.length)
-                      })
-                    prod.rating=calculRating(prod.like.length,prod.dislike.length)
-                    let res=await prod.save()
-
-                })
-            
-               //console.log(docs)
-            return res.status(201).json(docs)
-        
-    }
     
   catch(err)
     {
@@ -86,7 +81,7 @@ exports.like=async(req,res)=>
        if (prod)
        {
         if(prod.like.indexOf(req.user._id)>=0)
-            return res.status(403).json({message:'already liked'})
+            throw new Error('already liked')
        
         if(prod.dislike.indexOf(req.user._id)>=0) /*check if disliked then remove the dislike */
         {
@@ -96,19 +91,23 @@ exports.like=async(req,res)=>
 
         prod.like.push(req.user._id)
 
-        let produit = await prod.save()
-        if (produit) return res.status(201).json(produit)
+         await prod.save()
+
+         return res.status(200).json({message:'produit liked'})
+     
   
         
 
     }
+
+    throw new Error('product not found')
 
    
 
 }
     catch(err)
     {
-        res.status(403).json({message:'product not found'})
+        res.status(403).json(err.message)
     }
 }
 
@@ -122,8 +121,10 @@ exports.dislike=async(req,res)=>
 
        if (prod)
        {
+
         if(prod.dislike.indexOf(req.user._id)>=0)
-            return res.status(403).json({message:'already disliked'})
+
+        throw new Error('already disliked')
        
         if(prod.like.indexOf(req.user._id)>=0) /*check if liked then remove the like */
         {
@@ -134,37 +135,24 @@ exports.dislike=async(req,res)=>
 
         prod.dislike.push(req.user._id)
 
-        let produit = await prod.save()
-        if (produit) return res.status(201).json(produit)
-      
+      await prod.save()
 
+      return res.status(200).json({message:'produit disliked'})
+    
+    
     }
+
+     throw new Error('product not found')
 
  
 }
    
 catch(err)
 {
-    res.status(403).json({message:'product not found'})
+    res.status(403).json(err.message)
 }
 
 
 }
 
 
-calculRating=(nbLike,nbDislike)=>
-{
-
-    let rating
-
-    if(nbLike===0 && nbDislike===0)
-    rating=0
-    else
-    {
-    let rate=((nbLike/(nbLike+nbDislike))*100)/20
-    rating =Math.round(rate)
-    }
-
-    
-    return rating
-}

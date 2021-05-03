@@ -20,11 +20,12 @@ exports.addFavorite=(req,res)=>
             
             {
                
-                if (usr.wishlist.indexOf(p._id)==-1 )
+                if (usr.wishlist.indexOf(p._id)===-1 )
            {
                 usr.wishlist.push(p._id)
 
-                usr.save().then((saved)=>res.status(201).json(saved)).catch(err=>res.status(403).json({err}))
+                usr.save().then((saved)=>res.status(201).json({message:'the product is added to your wishlist'}))
+                .catch(err=>res.status(403).json({err}))
            }
                 else
 
@@ -48,18 +49,24 @@ exports.addFavorite=(req,res)=>
 
 exports.getFavourite=(req,res)=>
 {
-    console.log(req.cookies.cart)
+    
     user.findById(req.user._id).then((usr)=>{
-        if(usr)
-        {
-            if(usr.wishlist.length==0)
-            return res.status(403).json({message:'your wishlist is Empty'})
-            usr.populate('wishlist',(err,rslt)=>{
-               res.status(200).json({wishlist:rslt.wishlist})
-            })
+        if(!usr)
+        throw new Error('invalid user')
+        
+            if(usr.wishlist.length===0)
+            throw new Error('your wishlist is empty')
+            usr.populate('wishlist','images quantity name description',(err,rslt)=>{
+               
+                res.status(200).json(rslt)
+               })
+               
+             
+            
 
-        }
-    }).catch(err=>res.status(403).json({message:'invalid user'}))
+        
+        
+    }).catch(err=>res.status(403).json(err.message))
 }
 
 
@@ -80,17 +87,18 @@ exports.deleteOne=(req,res)=>
              
              {
                 
-                 if (usr.wishlist.indexOf(p._id)==-1 )
+                 if (usr.wishlist.indexOf(p._id)===-1 )
             
                  return res.status(401).json({message:'cannot be deleted ! the product: '+p.name+' with ID:'+p._id+' is not in your wishlist'})
-            
-                 else
-                    {
-                        usr.wishlist.splice(index,1)
-                    }
-                 usr.save().then((saved)=>res.status(201).json(saved)).catch(err=>res.status(403).json({err}))
+                 
+                 let index=usr.wishlist.indexOf(p._id)
+              
+                usr.wishlist.splice(index,1)
+                    
+                 usr.save().then((saved)=>res.status(201).json({message:'product removed from your wishlist'}))
+                 .catch(err=>res.status(403).json({err}))
 
-                }
+             }
          
              
                  

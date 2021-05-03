@@ -92,6 +92,38 @@ comments:[commentschema]
 })
 
 
+productSchema.pre('save',async function (next)
+
+
+{
+    this.comments.sort((a,b)=>
+    {
+       return Math.max(b.dislike.length,b.like.length) - Math.max(a.dislike.length,a.like.length)
+     })
+   this.rating=calculRating(this.like.length,this.dislike.length)
+ 
+
+    next();
+
+
+})
+
+calculRating=(nbLike,nbDislike)=>
+{
+
+    let rating
+
+    if(nbLike===0 && nbDislike===0)
+    rating=0
+    else
+    {
+    let rate=((nbLike/(nbLike+nbDislike))*100)/20
+    rating =Math.round(rate)
+    }
+
+    
+    return rating
+}
 
 const Products=mongoose.model('Product',productSchema);
 
