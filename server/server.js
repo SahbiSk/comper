@@ -8,6 +8,7 @@ const auth=require('./middlewares/authenticate')
 const product=require('./routes/products')
 
 
+
 const upload=require('./middlewares/multerConfig')
 
 
@@ -57,6 +58,8 @@ app.get('/',(req, res) => {
 app.use('/products',require('./routes/products'))
 app.use('/users',require('./routes/users'))
 app.use('/favourites',require('./routes/favourites'))
+app.use('/cart',require('./routes/cart'))
+app.use('/orders',require('./routes/order'))
 
 
 

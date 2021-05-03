@@ -5,14 +5,15 @@ const Schema=mongoose.Schema;
 const orderSchema=new Schema({
 
     cart:{type:Object,required :true},
-    customer:{type:mongoose.Types.ObjectId,ref:'User'},
-    email:{type:String,required:true}
+    customerEmail:{type:String,required:true},
+    date: { type: Date, default: new Date().toString().split(' ').splice(1,4).join(' ') }
+
 
 
                             })
 
 
-const orderSchema=mongoose.model('Basket',orderSchema)
+const orders=mongoose.model('Order',orderSchema)
 
 
-module.exports=basketSchema
+module.exports=orders
