@@ -79,6 +79,10 @@ tag:
 {
     type:String,
     default:''
+},
+quantity:{
+    type:Number,
+    default:1
 }
 ,
 comments:[commentschema]

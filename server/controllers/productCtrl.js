@@ -61,7 +61,7 @@ exports.getProd=async(req,res)=>
 
                 })
             
-               console.log(docs)
+               //console.log(docs)
             return res.status(201).json(docs)
         
     }
