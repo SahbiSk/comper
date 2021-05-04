@@ -47,7 +47,7 @@ exports.getProd=async(req,res)=>
 
     try {
 
-           await product.find().populate('owner','username avatar')
+           await product.find().populate('owner','username avatar totalPnts')
            .then((docs)=>{
                res.status(201).json(docs)
              
