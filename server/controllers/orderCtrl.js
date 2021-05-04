@@ -4,6 +4,7 @@ const nodemailer=require('../middlewares/nodemailer')
 
 
 
+
 exports.checkOrder=(req,res)=>
 {
  
@@ -12,15 +13,14 @@ exports.checkOrder=(req,res)=>
     return res.status(403).json({message:'your cart is empty'})
 
     
-    
-//user ranking
+  
 
 
 
 
 
 
-    let order=new Order({cart:cart,customerEmail:req.user.email})
+    let order=new Order({customer:req.user._id,cart:cart,customerEmail:req.user.email})
     order.save().then(ord=>  
         {
               let mailOptions = {
@@ -55,7 +55,7 @@ exports.checkOrder=(req,res)=>
           res.cookie('cart','deleteCart',{maxAge:1}).status(200).json({message:' Thanks your Order has been added'})
         
         
-        }).catch(err=>console.log(err))
+        }).catch(err=>res.send(err.message))
         
 
   
