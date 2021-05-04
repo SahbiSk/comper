@@ -107,10 +107,25 @@ exports.signIn=(req,res,next)=>
 }    
 
     
-exports.logOut=(req,res)=>{
+exports.ranking=async (req,res)=>{
+try
+{
+  let ranking =await user.find()
+      if (ranking)
+     ranking.sort((a,b)=>
+      {
+    return b.totalPnts - a.totalPnts
 
-  res.cookie('jwt','logout',{maxAge:1})
-  res.status(200).json({message:'logged out'})
+     })
+     return res.status(200).json(ranking)
+   
+}
+
+  catch(err)
+  {
+    res.status(403).json(err.message)
+  }
+
 
 
 }
