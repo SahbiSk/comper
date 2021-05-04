@@ -17,6 +17,7 @@ exports.addToCart=async(req,res)=>
     if (p)
     {
        
+
        let bool= cart.addToBasket(p,req.params.prodID)
        if (!bool)
        return res.status(403).json({message:'product is not available anymore'})
@@ -39,7 +40,7 @@ exports.addToCart=async(req,res)=>
         }
     catch(err)
     {
-        res.status(403).json(err)
+        res.status(403).json(err.message)
     }
 
 
