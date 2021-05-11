@@ -1,3 +1,5 @@
+import { LOGIN, SIGN_UP, LOGOUT } from "../types";
+
 const INITIAL_STATE = {
   email: "",
   username: "",
@@ -7,7 +9,7 @@ const INITIAL_STATE = {
   totalPnts: {},
 };
 
-export default (state = INITIAL_STATE, action) => {
+const userReducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
   switch (type) {
     case SIGN_UP:
@@ -16,8 +18,9 @@ export default (state = INITIAL_STATE, action) => {
       return payload;
     case LOGOUT:
       return INITIAL_STATE;
-
     default:
       return state;
   }
 };
+
+export default userReducer;

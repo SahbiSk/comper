@@ -7,22 +7,29 @@ import {
 } from "@material-ui/core";
 import React, { useState } from "react";
 import useStyles from "./styles";
-import FileBase64 from "react-file-base64";
+// import FileBase64 from "react-file-base64";
+import { useDispatch } from "react-redux";
+import { signIn, signUp } from "../../redux/actions/userActions";
 
 const Login = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const [data, setData] = useState({
+    username: "",
     email: "",
     password: "",
   });
+
+  const [avatar, setAvatar] = useState("");
   const [login, setLogin] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("done");
+    login ? dispatch(signIn(data)) : dispatch(signUp({ ...data, avatar }));
   };
 
+  
   return (
     <>
       <Container
@@ -71,10 +78,11 @@ const Login = () => {
         ))}
         {!login && (
           <IconButton>
-            <FileBase64
+            <input
               className={classes.upload}
-              onDone={(el) => console.log(el)}
-              multiple={false}
+              type="file"
+              value={data.avatar}
+              onChange={(e) => setAvatar(e.target.files[0])}
               required
             />
           </IconButton>
@@ -83,6 +91,11 @@ const Login = () => {
           {login ? "Login" : "Signup"}
         </Button>
       </Container>
+      {/* <img
+        src={
+          "http://localhost:5000/"+user.avatar
+        }
+      /> */}
     </>
   );
 };

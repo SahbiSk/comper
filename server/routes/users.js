@@ -8,7 +8,6 @@ const upload = require("../middlewares/multerConfig");
 associated with the given form field*/
 
 userRouter.post("/signUp", upload.single("avatar"), userCtrl.signUp);
-
 userRouter.post("/signIn", userCtrl.signIn);
 userRouter.get("/ranking", userCtrl.ranking);
 

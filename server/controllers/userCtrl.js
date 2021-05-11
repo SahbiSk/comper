@@ -45,7 +45,15 @@ exports.signUp = (req, res, next) => {
           }); // in s
 
           /*res.cookie('jwt',token,{httpOnly:true,maxAge: 360000})*/
-          res.status(200).json({ userId: rslt._id, token: token });
+          res.status(200).json({
+            userId: rslt._id,
+            token: token,
+            username: usr.username,
+            email: usr.email,
+            avatar: usr.avatar,
+            wishlist: usr.wishlist,
+            totalPnts: usr.totalPnts,
+          });
         })
 
         .catch((err) => res.status(400).json({ errors: handleError(err) }));
@@ -77,7 +85,17 @@ exports.signIn = (req, res, next) => {
 
           //res.cookie('jwt',token,{httpOnly:true,maxAge: 360000}) // in ms
 
-          res.status(200).json({ userId: user._id, token: token });
+          res
+            .status(200)
+            .json({
+              userId: user._id,
+              token,
+              username: user.username,
+              email: user.email,
+              avatar: user.avatar,
+              wishlist: user.wishlist,
+              totalPnts: user.totalPnts,
+            });
         })
         .catch((err) => {
           console.log(err), res.status(401).json({ err: err });
