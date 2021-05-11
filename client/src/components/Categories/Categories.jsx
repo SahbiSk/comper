@@ -2,12 +2,10 @@ import {
   Slide,
   List,
   ListItem,
-  ListItemIcon,
   ListItemText,
   Icon,
   Typography,
 } from "@material-ui/core";
-import { GiSwimfins } from "react-icons/gi";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import useStyles from "./styles";
 import React, { useState } from "react";

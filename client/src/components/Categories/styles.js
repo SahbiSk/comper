@@ -3,10 +3,12 @@ import { makeStyles } from "@material-ui/core";
 export default makeStyles((theme) => ({
   list: {
     padding: "0",
-    color: "var(--color-blue-light)",
+    color: "var(--color-grey-light)",
+    background: "var(--color-slate-dark)",
     borderRight: " 1px solid var(--color-blue-light)",
     width: "15vw",
     marginRight: "2vw",
+    borderBottom: "4px solid var(--color-blue-light)",
   },
   slideIcon: {
     zIndex: "99",
@@ -26,6 +28,12 @@ export default makeStyles((theme) => ({
   listItem: {
     display: "flex",
     alignItems: "center",
+    borderBottom: "1px solid var(--color-blue-light)",
+    transition: "0.2s ",
+    "&:hover": {
+      color: "var(--color-blue-light)",
+      background:"black"
+    },
   },
   itemIcon: {
     fontSize: "26px",
