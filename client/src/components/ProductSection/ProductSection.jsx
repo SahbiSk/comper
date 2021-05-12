@@ -2,15 +2,23 @@ import { Grid } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import useStyles from "./styles";
 import "./styles.css";
-import data from "./data";
+//import data from "./data";
 import Categories from "../Categories/Categories";
 import ProductCard from "./ProductCard";
 import SuggestionsList from "./SuggestionList/SuggestionsList";
+import { getProducts } from "../../redux/actions/productAction";
+import { useDispatch, useSelector } from "react-redux";
 
 const ProductSection = () => {
   const classes = useStyles();
   const [category, setCategory] = useState("");
+  const data = useSelector((state) => state.productReducer);
   const [products, setProducts] = useState(data);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
 
   useEffect(() => {
     if (category) {
@@ -18,9 +26,7 @@ const ProductSection = () => {
     } else {
       setProducts(data);
     }
-  }, [category]);
-
-  console.log(category);
+  }, [category,data]);
 
   return (
     <div className={classes.mainContainer}>

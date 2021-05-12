@@ -3,7 +3,6 @@ import {
   Card,
   CardActions,
   CardContent,
-  CardMedia,
   Grid,
   Typography,
 } from "@material-ui/core";
@@ -17,8 +16,21 @@ import {
 import { withRouter } from "react-router";
 
 const ProductCard = ({ el, history }) => {
+  const server = "http://localhost:5000/";
+  const starGenerator = () => {
+    let t = [];
+    for (let i = 1; i < 6; i++) {
+      t.push(
+        i <= el.rating ? (
+          <AiFillStar className={classes.star} key={i} />
+        ) : (
+          <AiOutlineStar key={i} />
+        )
+      );
+    }
+    return t;
+  };
   const classes = useStyles();
-
   return (
     <Grid
       item
@@ -26,30 +38,24 @@ const ProductCard = ({ el, history }) => {
       sm={6}
       md={4}
       lg={3}
-      onClick={() => history.push("/product/" + el.id)}
+      onClick={() => history.push("/product/" + el._id)}
     >
       <Card className={classes.card}>
-        <CardMedia image={el.img} className={classes.cardMedia} />
+        <img src={server + el.images[0]} className={classes.cardMedia} alt={el.name} />
         <CardContent className={classes.content}>
           <div>
             <Typography variant="h5">{el.name} </Typography>
             <Typography color="textSecondary">{el.content} </Typography>
           </div>
-          <div>
-            <AiFillStar className={classes.star} />
-            <AiFillStar className={classes.star} />
-            <AiFillStar className={classes.star} />
-            <AiOutlineStar />
-            <AiOutlineStar />
-          </div>
+          <div>{starGenerator()}</div>
         </CardContent>
         <CardActions className={classes.actions}>
           <div className={classes.like}>
-            <p>{el.like}</p>
+            <p>{el.like.length}</p>
             <AiFillLike className={classes.icon} />
           </div>
           <div className={classes.dislike}>
-            <p>{el.dislike}</p>
+            <p>{el.dislike.length}</p>
             <AiFillDislike className={classes.icon} />
           </div>
         </CardActions>

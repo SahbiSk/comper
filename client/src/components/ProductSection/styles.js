@@ -10,10 +10,11 @@ export default makeStyles((theme) => ({
     margin: "0 auto",
   },
   cardMedia: {
-    paddingTop: "56.25%",
+    width: "100%",
+    height: "60%",
   },
   card: {
-    height: "42vh",
+    height: "52vh",
     cursor: "pointer",
   },
   content: {

@@ -12,12 +12,16 @@ import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import ThumbDownIcon from "@material-ui/icons/ThumbDown";
 import React from "react";
 import useStyles from "./styles";
-import products from "../ProductSection/data";
+import { useSelector } from "react-redux";
 
 const Product = (props) => {
+  const server = "http://localhost:5000/";
+
   const classes = useStyles();
   const id = props.match.params.id;
-  let product = products.filter((pro) => pro.id === id)[0];
+  const product = useSelector((state) => state.productReducer).filter(
+    (el) => el._id === id
+  )[0];
 
   const comments = [
     {
@@ -51,20 +55,27 @@ const Product = (props) => {
       content: "hello world",
     },
   ];
+
   return (
     <Grid className={classes.container} container>
       <Grid item className={classes.pic} xs={12} sm={6}>
-        <img src={product.img} className={classes.img} alt="img" />
+        <img
+          src={server + product.images[0]}
+          className={classes.img}
+          alt="img"
+        />
         <Card className={classes.productImg}>
-          <CardContent className={classes.cardContent}>hello</CardContent>
+          <CardContent className={classes.cardContent}>
+            #{product.category}
+          </CardContent>
           <CardActions className={classes.cardActions}>
             <Icon className={`${classes.likeIcon} ${classes.icon} `}>
-              {product.like}
-              <ThumbDownIcon />
+              {product.dislike.length}
+              <ThumbUpAltIcon />
             </Icon>
             <Icon className={`${classes.dislikeIcon} ${classes.icon} `}>
-              {product.dislike}
-              <ThumbUpAltIcon />
+              {product.like.length}
+              <ThumbDownIcon />
             </Icon>
           </CardActions>
         </Card>
@@ -81,7 +92,7 @@ const Product = (props) => {
         </Container>
 
         {comments.map((com, key) => (
-          <div className={classes.commentItem}>
+          <div className={classes.commentItem} key={key}>
             <div className={classes.comment} key={key}>
               {com.content}
             </div>

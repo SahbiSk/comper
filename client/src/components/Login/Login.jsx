@@ -10,6 +10,7 @@ import useStyles from "./styles";
 // import FileBase64 from "react-file-base64";
 import { useDispatch } from "react-redux";
 import { signIn, signUp } from "../../redux/actions/userActions";
+//import { getProducts } from "../../redux/actions/productAction";
 
 const Login = () => {
   const classes = useStyles();
@@ -23,13 +24,14 @@ const Login = () => {
 
   const [avatar, setAvatar] = useState("");
   const [login, setLogin] = useState(false);
+  // const user = useSelector((state) => state.userReducer);
+  // console.log(user.avatar);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     login ? dispatch(signIn(data)) : dispatch(signUp({ ...data, avatar }));
   };
 
-  
   return (
     <>
       <Container
@@ -91,11 +93,7 @@ const Login = () => {
           {login ? "Login" : "Signup"}
         </Button>
       </Container>
-      {/* <img
-        src={
-          "http://localhost:5000/"+user.avatar
-        }
-      /> */}
+      {/* <img src={"http://localhost:5000/" + user.avatar} /> */}
     </>
   );
 };
