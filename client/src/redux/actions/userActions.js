@@ -1,4 +1,4 @@
-import { LOGIN, SIGN_UP } from "../types";
+import { LOGIN, LOGOUT, SIGN_UP } from "../types";
 import Api from "../utils/Api";
 
 const options = {
@@ -30,5 +30,13 @@ export const signIn = (data) => async (dispatch) => {
     dispatch({ type: LOGIN, payload: res.data });
   } catch (err) {
     console.log(err);
+  }
+};
+
+export const logout = () => async (dispatch) => {
+  try {
+    dispatch({ type: LOGOUT });
+  } catch (error) {
+    console.log(error);
   }
 };
