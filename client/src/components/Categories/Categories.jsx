@@ -44,9 +44,6 @@ const Categories = ({ category, setCategory }) => {
               className={classes.listItem}
               onClick={() => setCategory(el.text)}
             >
-              {/** <ListItemIcon className={classes.itemIcon}>
-                {el.icon}
-              </ListItemIcon> */}
               <ListItemText className={classes.itemText}>
                 <Typography variant="h6"> {el.text}</Typography>
               </ListItemText>
