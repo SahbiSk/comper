@@ -28,6 +28,8 @@ orderSchema.pre("save", function (next) {
       .findById(element.item.owner)
       .then((user) => {
         user.totalPnts += element.price * 10;
+        if(user.totalPnts>1000)
+        user.badge=true
 
         user
           .save()
