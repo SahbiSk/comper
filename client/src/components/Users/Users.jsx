@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
-  CircularProgress,
   Container,
-  LinearProgress,
   Table,
   TableBody,
   TableCell,
@@ -14,6 +12,7 @@ import {
 import { useSelector } from "react-redux";
 import Api from "../../redux/utils/Api";
 import useStyles from "./styles";
+import BeenhereIcon from "@material-ui/icons/Beenhere";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -23,21 +22,26 @@ const Users = () => {
   useEffect(() => {
     (async () => {
       const { data } = await Api.get("/users/ranking");
-      setTimeout(
-        () => setUsers(data.filter((el) => el._id !== user.userId)),
-        2000
-      );
+      setUsers(data.filter((el) => el._id !== user.userId));
     })();
     return () => {};
   }, [user.userId]);
 
-  const t = ["Avatar", "Username", "Email", "Total Points"];
-  const usersData = users.map(({ username, avatar, email, totalPnts }) => ({
-    avatar,
-    username,
-    email,
-    totalPnts,
-  }));
+  const t = ["Avatar", "Username", "Email", "Total Points", "Badge"];
+  let usersData = users.map(
+    ({ username, avatar, email, totalPnts, badge }) => ({
+      avatar,
+      username,
+      email,
+      totalPnts,
+      badge: badge ? (
+        <BeenhereIcon className={classes.badge} />
+      ) : (
+        "Not yet aquired"
+      ),
+    })
+  );
+
   const server = "http://localhost:5000/";
 
   return (

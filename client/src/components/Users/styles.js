@@ -8,4 +8,7 @@ export default makeStyles((theme) => ({
     position: "absolute",
     top: "50%",
   },
+  badge: {
+    color: "gold",
+  },
 }));
