@@ -34,6 +34,10 @@ const userSchema = new Schema({
     type: Number,
     default: 0,
   },
+  badge: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 userSchema.pre("save", async function (next) {
