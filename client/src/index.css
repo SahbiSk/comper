@@ -25,6 +25,9 @@ a {
   --color-blue-dark: #001a49;
 }
 
+body {
+  background: var(--color-grey-light);
+}
 body::-webkit-scrollbar {
   width: 15px;
 }

@@ -3,17 +3,19 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
 } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Product from "./components/Product/Product";
 import ProductSection from "./components/ProductSection/ProductSection";
 import Login from "./components/Login/Login";
 import Footer from "./components/Footer/Footer";
+import Users from "./components/Users/Users";
+import { CssBaseline } from "@material-ui/core";
 
 const App = () => {
   return (
     <Router>
+      <CssBaseline />
       <Switch>
         <Route
           path="/"
@@ -38,8 +40,18 @@ const App = () => {
             </>
           )}
         />
+        <Route
+          exact
+          path="/users"
+          render={(props) => (
+            <>
+              <Navbar {...props} />
+              <Users {...props} />
+              <Footer />
+            </>
+          )}
+        />
       </Switch>
-      <Redirect to="/" />
     </Router>
   );
 };
