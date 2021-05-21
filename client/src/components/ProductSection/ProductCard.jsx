@@ -30,6 +30,7 @@ const ProductCard = ({ el, history }) => {
     }
     return t;
   };
+  
   const classes = useStyles();
   return (
     <Grid
@@ -41,7 +42,11 @@ const ProductCard = ({ el, history }) => {
       onClick={() => history.push("/product/" + el._id)}
     >
       <Card className={classes.card}>
-        <img src={server + el.images[0]} className={classes.cardMedia} alt={el.name} />
+        <img
+          src={server + el.images[0]}
+          className={classes.cardMedia}
+          alt={el.name}
+        />
         <CardContent className={classes.content}>
           <div>
             <Typography variant="h5">{el.name} </Typography>

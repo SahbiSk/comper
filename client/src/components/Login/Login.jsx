@@ -7,12 +7,10 @@ import {
 } from "@material-ui/core";
 import React, { useState } from "react";
 import useStyles from "./styles";
-// import FileBase64 from "react-file-base64";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signIn, signUp } from "../../redux/actions/userActions";
-//import { getProducts } from "../../redux/actions/productAction";
 
-const Login = () => {
+const Login = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -24,13 +22,16 @@ const Login = () => {
 
   const [avatar, setAvatar] = useState("");
   const [login, setLogin] = useState(false);
-  // const user = useSelector((state) => state.userReducer);
-  // console.log(user.avatar);
+  const user = useSelector((state) => state.userReducer);
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
     login ? dispatch(signIn(data)) : dispatch(signUp({ ...data, avatar }));
   };
+  if (user.email) {
+    props.history.push("/");
+  }
 
   return (
     <>

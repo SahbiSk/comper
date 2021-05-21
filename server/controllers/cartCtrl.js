@@ -7,6 +7,7 @@ exports.addToCart = async (req, res) => {
       ? req.cookies.cart
       : { items: {}, totalProd: 0, totalPrice: 0 }
   );
+  console.log(req.cookies.cart);
   console.log(cart);
 
   try {
