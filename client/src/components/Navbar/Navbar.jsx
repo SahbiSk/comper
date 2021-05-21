@@ -5,16 +5,14 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import SearchIcon from "@material-ui/icons/Search";
 import useStyles from "./styles";
 import { Link } from "react-router-dom";
-import data from "../../components/ProductSection/data";
+import { useSelector } from "react-redux";
+import GroupIcon from "@material-ui/icons/Group";
 
 const Navbar = (props) => {
   const classes = useStyles();
   const [value, setValue] = useState();
-  const [list, setList] = useState(data);
-
-  useEffect(() => {
-    setList(data);
-  }, []);
+  const list = useSelector((state) => state.productReducer);
+  const user = useSelector((state) => state.userReducer);
 
   useEffect(() => {
     if (value) {
@@ -37,7 +35,6 @@ const Navbar = (props) => {
             <TextField
               {...params}
               label="Type item here..."
-              //variant="outlined"
               className={classes.searchBox}
             />
           )}
@@ -52,9 +49,13 @@ const Navbar = (props) => {
           }
         />
       </div>
-
-      <Link to="/auth" className={classes.icon}>
-        Login
+      {user.email && (
+        <Link to="/users" className={classes.icon}>
+          <GroupIcon />
+        </Link>
+      )}
+      <Link to={`/${user.email ? "profile" : "auth"}`} className={classes.icon}>
+        {`${user.email ? "Profile" : "Login"}`}
       </Link>
     </nav>
   );

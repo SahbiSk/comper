@@ -87,4 +87,15 @@ export default makeStyles((theme) => ({
   commentLikeIcon: {
     color: "var(--color-blue-light)",
   },
+  notif: {
+    position: "absolute",
+    width: "100vw",
+    background: "black",
+    color: "white",
+    display: "flex",
+    justifyContent: "center",
+    height: "5vh",
+    alignItems: "center",
+    fontSize: "20px",
+  },
 }));
