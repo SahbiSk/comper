@@ -60,6 +60,10 @@ const productSchema = new Schema({
     type: Number,
     default: 1,
   },
+  date: {
+    type: String,
+    default: new Date().toString().split(" ").splice(1, 4).join(" "),
+  },
   comments: [commentschema],
 });
 
