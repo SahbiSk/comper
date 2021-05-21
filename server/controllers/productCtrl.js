@@ -50,7 +50,19 @@ exports.getProd=async(req,res)=>
            await product.find().populate('owner','username avatar totalPnts')
            .populate('comments.author','username avatar totalPnts')
            .then((docs)=>{
+               docs.sort((a,b)=>
+               {
+                  let db=new Date(b.date)
+                   let da=new Date(a.date)
+                   return db-da
+
+                 
+              
+              
+               })
+               
                res.status(201).json(docs)
+            
              
            })
            .catch((err)=>console.log(err))

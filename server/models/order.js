@@ -10,7 +10,7 @@ const orderSchema = new Schema({
   cart: { type: Object, required: true },
   customerEmail: { type: String, required: true },
   date: {
-    type: Date,
+    type: String,
     default: new Date().toString().split(" ").splice(1, 4).join(" "),
   },
 });
