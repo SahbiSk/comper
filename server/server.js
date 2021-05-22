@@ -40,6 +40,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/products", require("./routes/products"));
+app.use("/products/:id/comments", require("./routes/comments"));
 app.use("/users", require("./routes/users"));
 app.use("/favourites", require("./routes/favourites"));
 app.use("/cart", require("./routes/cart"));
