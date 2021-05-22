@@ -1,7 +1,7 @@
 var comments = require("../models/comment");
 var cmntctrl = {};
 
-cmntctrl.checkCommentsOwnerShip = function (req, res, next) {
+exports.checkCommentsOwnerShip = function (req, res, next) {
   if (req.isAuthenticated()) {
     comments.findById(req.params.comment_id, function (err, found) {
       if (err) {
@@ -9,7 +9,6 @@ cmntctrl.checkCommentsOwnerShip = function (req, res, next) {
         res.redirect("back");
       } else {
         // if user owe this post
-        //req.user._id=>string | found.author.id=>object|equals =mongoose method
         if (found.author.id.equals(req.user._id)) {
           next();
         } else {
@@ -24,7 +23,7 @@ cmntctrl.checkCommentsOwnerShip = function (req, res, next) {
   }
 };
 
-cmntctrl.isLoggedIn = function (req, res, next) {
+exports.isLoggedIn = function (req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
@@ -113,8 +112,4 @@ catch(err)
 {
     res.status(403).json(err.message)
 }
-
-
 }
-
-module.exports = cmntctrl;

@@ -29,6 +29,7 @@ router.post("/", controller.isLoggedIn, (req, res) => {
         } else {
           comment.author.id = req.user._id;
           comment.author.username = req.user.username;
+          comment.text=req.body.text;
           comment.save();
           found.comments.push(comment);
           found.save();
@@ -41,8 +42,8 @@ router.post("/", controller.isLoggedIn, (req, res) => {
 });
 
 //likes & dislikes
-router.post('/:comment_id/likes',auth,controller.like);
-router.post('/:comment_id/dislikes',auth,controller.dislike);
+//router.post('/:comment_id/likes',auth,controller.like);
+//router.post('/:comment_id/dislikes',auth,controller.dislike);
 
 // edit form
 router.get(
