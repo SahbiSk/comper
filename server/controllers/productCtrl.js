@@ -152,7 +152,7 @@ exports.deletComment=async (req,res)=>
             let id1=req.user._id.toString()
             let id2=prod.comments.id(req.params.commentID).author.toString()
          
-            if( id1==id2 && req.body.comment )
+            if( id1==id2 )
              {
                
                 prod.comments.id(req.params.commentID).remove()
@@ -203,7 +203,7 @@ exports.commentLike=async (req,res)=>
            if(prod.comments.id(req.params.commentID).dislike.indexOf(req.user._id)>=0) //remove dislike and like
            {
                let index=prod.comments.id(req.params.commentID).dislike.indexOf(req.user._id)
-               prod.prod.comments.id(req.params.commentID).dislike.splice(index,1)
+               prod.comments.id(req.params.commentID).dislike.splice(index,1)
                prod.comments.id(req.params.commentID).like.push(req.user._id)
            }
    
@@ -247,7 +247,7 @@ exports.commentDislike=async (req,res)=>
            if(prod.comments.id(req.params.commentID).like.indexOf(req.user._id)>=0) //remove like and dislike
            {
                let index=prod.comments.id(req.params.commentID).like.indexOf(req.user._id)
-               prod.prod.comments.id(req.params.commentID).like.splice(index,1)
+               prod.comments.id(req.params.commentID).like.splice(index,1)
                prod.comments.id(req.params.commentID).dislike.push(req.user._id)
            }
    
