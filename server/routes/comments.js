@@ -4,14 +4,12 @@ const auth=require('../middlewares/authenticate');
 const controller = require("../controllers/cmntCtrl");
 
 
-//get all comments
+//get comments
 router.get('/:prodID/comments',controller.getAllComments);
-//get a comment
-//router.get('/:prodID/comments/:commentID',controller.getComment);
 //add comment
 router.post('/:prodID/comments',auth,controller.addComment);
-router.post('/:prodID/comments/:commentID/likes',auth,controller.like);
-router.post('/:prodID/comments/:commentID/dislikes',auth,controller.dislike);
+router.post('/:prodID/comments/:commentID/likes',auth,controller.commentLike);
+router.post('/:prodID/comments/:commentID/dislikes',auth,controller.commentDislike);
 //update form
 router.put("/:prodID/comments/:commentID",auth,controller.updateComment);
 //delete comment
