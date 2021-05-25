@@ -39,6 +39,35 @@ exports.addProd=(req,res,next)=>
 
 }
 
+exports.commentProd=(req,res)=>
+{
+    product.findById(req.params.prodID)
+    .then((prod)=>{
+        if(prod)
+        {   
+            if(!req.body.comment)
+            throw (new Error('comment field is empty'))
+            req.body.author = req.user._id;
+            prod.comments.push(req.body);
+            prod.save()
+            .then(()=>
+                
+                        res.status(200).json({message:'comment added succefully !'})    
+                    
+                        
+                
+            ).catch(err=>res.status(404).json(err.message));
+           
+        }
+        else{
+            err = new Error('product '+ req.params.prodID + ' not found.');
+            throw(err)
+        }
+    })
+    .catch((err)=>res.status(404).json(err.message));
+
+}
+
 
 
 exports.getProd=async(req,res)=>
@@ -153,35 +182,5 @@ catch(err)
     res.status(403).json(err.message)
 }
 
-
-}
-
-
-exports.commentProd=(req,res)=>
-{
-    product.findById(req.params.prodID)
-    .then((prod)=>{
-        if(prod)
-        {   
-            if(!req.body.comment)
-            throw(new Error('comment field is empty'))
-            req.body.author = req.user._id;
-            prod.comments.push(req.body);
-            prod.save()
-            .then(()=>
-                
-                        res.status(200).json({message:'comment added succefully !'})    
-                    
-                        
-                
-            ).catch(err=>res.status(404).json(err.message));
-           
-        }
-        else{
-            err = new Error('product '+ req.params.prodID + ' not found.');
-            throw(err)
-        }
-    })
-    .catch((err)=>res.status(404).json(err.message));
 
 }
