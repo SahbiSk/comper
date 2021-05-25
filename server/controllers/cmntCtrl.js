@@ -2,15 +2,16 @@ const Product = require("../models/product");
 
 exports.getAllComments=async (req,res) =>
 {
-  const cmnt = await Product.comments.find();
-  res.send(cmnt);
+  const prod = await Product.findById(req.params.prodID);
+  res.send(prod.comments);
 }
 
 exports.getComment=async (req,res) =>
 {
-  const cmnt = await Product.comments.findById(req.params.commentID);
+  const prod = await Product.findById(req.params.prodID);
+  const cmnt = await Product.findById(req.params.commentID);
   
-    if (!cmnt) return res.status(404).send('The comment with the given ID was not found.');
+    if (cmnt != prod.comments) return res.status(404).send('The comment with the given ID was not found.');
   
     res.send(cmnt);
 }

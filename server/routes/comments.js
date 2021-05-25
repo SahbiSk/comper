@@ -7,7 +7,7 @@ const controller = require("../controllers/cmntCtrl");
 //get all comments
 router.get('/:prodID/comments',controller.getAllComments);
 //get a comment
-router.get('/prodID/comments/:commentID',controller.getComment);
+//router.get('/:prodID/comments/:commentID',controller.getComment);
 //add comment
 router.post('/:prodID/comments',auth,controller.addComment);
 router.post('/:prodID/comments/:commentID/likes',auth,controller.like);
