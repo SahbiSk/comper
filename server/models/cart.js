@@ -10,10 +10,7 @@ module.exports = function Cart(oldCart) {
       stroedItem = this.items[id] = { item: prod, qty: 0, price: 0 };
     }
 
-    if (prod.quantity === 0) {
-      return false;
-    }
-
+ 
     stroedItem.qty++;
     stroedItem.price = stroedItem.item.price * stroedItem.qty;
     prod.quantity--;
