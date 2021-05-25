@@ -3,9 +3,12 @@ const produit = require("../models/product");
 
 exports.addToCart = async (req, res) => {
   let cart = new Cart(
-    req.cookies.cart ? req.cookies.cart: { items: {}, totalProd: 0, totalPrice: 0 }
+    req.cookies.cart
+      ? req.cookies.cart
+      : { items: {}, totalProd: 0, totalPrice: 0 }
   );
- 
+  console.log(req.cookies.cart);
+  console.log(cart);
 
   try {
     let p = await produit.findById(req.params.prodID);
