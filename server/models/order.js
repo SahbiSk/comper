@@ -11,7 +11,7 @@ const orderSchema = new Schema({
   customerEmail: { type: String, required: true },
   date: {
     type: Date,
-    default: new Date().toString().split(" ").splice(1, 4).join(" "),
+    default: new Date().toString().split(" ").splice(1, 4).join(" ")
   },
 });
 

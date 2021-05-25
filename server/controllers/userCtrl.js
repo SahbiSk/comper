@@ -1,7 +1,10 @@
 const user = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+
+const Users = require("../models/user");
 const config = require("../config");
+
 
 let errors = { email: "", password: "", username: "" };
 
@@ -45,6 +48,7 @@ exports.signUp = (req, res, next) => {
           }); // in s
 
           /*res.cookie('jwt',token,{httpOnly:true,maxAge: 360000})*/
+          
           res.status(200).json({
             userId: rslt._id,
             token: token,
@@ -65,7 +69,7 @@ exports.signUp = (req, res, next) => {
 
 exports.signIn = (req, res, next) => {
   user
-    .findOne({ email: req.body.email })
+    .findOne({ email: req.body.email }).populate('wishlist')
     .exec()
     .then((user) => {
       if (user == null)
@@ -84,7 +88,8 @@ exports.signIn = (req, res, next) => {
           }); // in s
 
           //res.cookie('jwt',token,{httpOnly:true,maxAge: 360000}) // in ms
-
+        
+        
           res
             .status(200)
             .json({
@@ -115,4 +120,6 @@ exports.ranking = async (req, res) => {
   } catch (err) {
     res.status(403).json(err.message);
   }
-};
+}
+
+
