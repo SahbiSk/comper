@@ -56,8 +56,8 @@ exports.getFavourite=(req,res)=>
         
             if(usr.wishlist.length===0)
             throw new Error('your wishlist is empty')
-            usr.populate('wishlist','images quantity name description',(err,rslt)=>{
-               
+            usr.populate('wishlist','images quantity name description category',(err,rslt)=>{
+            
                 res.status(200).json(rslt)
                })
                
@@ -149,3 +149,4 @@ exports.deleteOne=(req,res)=>
 
 
  }
+

@@ -9,7 +9,7 @@ require("dotenv").config();
 
 const upload = require("./middlewares/multerConfig");
 
-app.use(cors({ origin: "*" }));
+app.use(cors({ origin: "*", credentials: true }));
 app.use(cookieParser());
 
 const mongoose = require("mongoose");

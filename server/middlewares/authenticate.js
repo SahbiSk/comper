@@ -15,8 +15,9 @@ module.exports = async (req, res, next) => {
 
   try {
     const tokenData = jwt.verify(token, config.secretKey);
-    const currentUSer = await user.findById(tokenData.userId);
+    const currentUSer = await user.findById(tokenData.userId).populate('wishlist');
     req.user = currentUSer;
+    
 
     next();
   } catch (err) {
