@@ -20,7 +20,7 @@ const AddProduct = () => {
   const handleChange = (e) => {
     setProduct({ ...product, [e.target.name]: e.target.value });
   };
-  console.log(img);
+  console.log({ owner, ...product, img });
 
   return (
     <Container className={classes.addProductForm}>
@@ -33,6 +33,7 @@ const AddProduct = () => {
           key={i}
           value={product[el]}
           label={el}
+          type={el === "price" || el === "quantity" ? "number" : "text"}
           onChange={(e) => handleChange(e)}
           name={el}
         />
@@ -40,12 +41,8 @@ const AddProduct = () => {
 
       <Button component="label" className={classes.imgIcon} variant="contained">
         <ImageIcon />
-        <Typography>Add image(s)</Typography>
-        <input
-          type="file"
-          hidden
-          onChange={(e) => setImg(e.target.files[0])}
-        />
+        <Typography>Add image</Typography>
+        <input type="file" hidden onChange={(e) => setImg(e.target.files[0])} />
       </Button>
 
       <Button variant="outlined" className={classes.btn}>
