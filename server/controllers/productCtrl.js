@@ -50,6 +50,7 @@ exports.addProd=(req,res,next)=>
 exports.getProd=async(req,res)=>
 {
     let token
+    res.cookie("cart", cart, { httpOnly: true, maxAge: 86400000 }); //cart lasts one day
     if(req.headers.authorization && req.headers.authorization.startsWith("Bearer"))
     {
 
