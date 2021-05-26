@@ -9,8 +9,7 @@ const commentschema = new Schema(
     },
 
     comment: {
-      type: String,
-      default: "",
+      type: String
     },
     like: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     dislike: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],

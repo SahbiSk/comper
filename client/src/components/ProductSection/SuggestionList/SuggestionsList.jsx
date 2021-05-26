@@ -1,13 +1,15 @@
 import { Grid, Typography } from "@material-ui/core";
 import React from "react";
 import useStyles from "./styles";
-import data from "../data";
 import ProductCard from "../ProductCard";
+import { useSelector } from "react-redux";
 
 const SuggestionsList = () => {
   const classes = useStyles();
   const tag = localStorage.getItem("tag");
-  const filteredList = data.filter((el) => el.tag === tag).slice(0, 4);
+  const filteredList = useSelector((state) => state.productReducer)
+    .filter((el) => el.tag === tag)
+    .slice(0, 4);
 
   return (
     <div className={classes.recommandedSection}>
