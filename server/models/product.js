@@ -9,7 +9,7 @@ const commentschema = new Schema(
     },
 
     comment: {
-      type: String
+      type: String,
     },
     like: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     dislike: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
@@ -41,6 +41,7 @@ const productSchema = new Schema({
     type: Number,
     min: 0,
     max: 5,
+    default: 0,
   },
 
   like: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
@@ -54,6 +55,7 @@ const productSchema = new Schema({
   tag: {
     type: String,
     default: "",
+    required: true,
   },
   quantity: {
     type: Number,
