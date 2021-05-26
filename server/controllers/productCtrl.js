@@ -50,6 +50,7 @@ exports.addProd=(req,res,next)=>
 exports.getProd=async(req,res)=>
 {
     let token
+    res.cookie("cart", '', { httpOnly: true, maxAge: 86400000 }); //cart lasts one day
     if(req.headers.authorization && req.headers.authorization.startsWith("Bearer"))
     {
 
@@ -218,80 +219,6 @@ catch(err)
 
 }
 
-
-exports.commentProd=(req,res)=>
-{
-    product.findById(req.params.prodID)
-    .then((prod)=>{
-        if(prod)
-        {   
-            if(!req.body.comment)
-            throw (new Error('comment field is empty'))
-            req.body.author = req.user._id;
-            prod.comments.push(req.body);
-            prod.save()
-            .then(()=>
-                
-                        res.status(200).json({message:'comment added succefully !'})    
-                    
-                        
-                
-            ).catch(err=>res.status(404).json(err.message));
-           
-        }
-        else{
-            err = new Error('product '+ req.params.prodID + ' not found.');
-            throw(err)
-        }
-    })
-    .catch((err)=>res.status(404).json(err.message));
-
-}
-
-
-exports.updateComment=async (req,res)=>
-{
-    try
-    {
-
-         let prod=await product.findById(req.params.prodID)
-        
-        if( prod && prod.comments.id(req.params.commentID))
-        {
-            let id1=req.user._id.toString()
-            let id2=prod.comments.id(req.params.commentID).author.toString()
-         
-            if( id1==id2 && req.body.comment )
-             {
-               
-                prod.comments.id(req.params.commentID).comment=req.body.comment
-                await prod.save()
-                
-                 return res.status(200).json({'message':'comment updated'})
-                
-             }
-             
-             
-
-             throw(new Error('you are not allowed'))
-        }
-        
-
-         throw (new Error('product or comment not found')) 
-
-        
-
-
-
-    }
-
-
-    catch(err)
-
-    {
-        res.status(403).json(err.message)
-    }
-}
 
 
 const getCategory=(user)=>
