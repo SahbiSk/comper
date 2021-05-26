@@ -13,14 +13,14 @@ productRouter.post('/:prodID/dislikes',auth,produtCtrl.dislike)
 
 productRouter.post('/:prodID/comments',auth,produtCtrl.commentProd)
 productRouter.put('/:prodID/comments/:commentID',auth,produtCtrl.updateComment)
-/*
+
 productRouter.delete('/:prodID/comments/:commentID',auth,produtCtrl.deletComment)
 
 
 productRouter.post('/:prodID/comments/:commentID',auth,produtCtrl.commentLike)
 productRouter.post('/:prodID/comments/;commentID',auth,produtCtrl.commentDislike)
 
-*/
+
 
 productRouter.get('/',produtCtrl.getProd)
 
