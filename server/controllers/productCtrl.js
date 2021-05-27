@@ -25,18 +25,17 @@ exports.addProd=(req,res,next)=>
 {
         console.log(req.user)
    
-    let img=[]
+ 
 
-    if (req.files){
-       req.files.forEach(el=> {
-            img.push(el.path)            
-        });
+    if (req.file)
+  
+     req.body.image=req.file.path
        
-    }
+    
     
   
     req.body.owner=req.user._id
-    req.body.images=img
+   
     product.create(req.body).then(doc=> {
       
         res.status(201).json({doc})

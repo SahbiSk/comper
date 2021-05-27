@@ -46,7 +46,7 @@ const productSchema = new Schema({
 
   like: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   dislike: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-  images: [String],
+  image: {type:String},
   price: {
     type: Number,
     required: true,
@@ -54,7 +54,7 @@ const productSchema = new Schema({
 
   tag: {
     type: String,
-    default: "",
+    default: "",required:true
   },
   quantity: {
     type: Number,
