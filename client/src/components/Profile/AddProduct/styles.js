@@ -25,4 +25,18 @@ export default makeStyles((theme) => ({
     color: "white",
     margin: "2vh",
   },
+  notif: {
+    position: "absolute",
+    top: "0",
+    left: "0",
+    width: "100vw",
+    background: "red",
+    color: "white",
+    display: "flex",
+    justifyContent: "center",
+    height: "5vh",
+    alignItems: "center",
+    fontSize: "20px",
+    zIndex: "100",
+  },
 }));

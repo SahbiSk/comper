@@ -6,7 +6,7 @@ const upload=require('../middlewares/multerConfig')
 
 
 
-productRouter.post('/',auth,upload.single("productImages"),produtCtrl.addProd)
+productRouter.post('/',auth,upload.array('productImages'),produtCtrl.addProd)
 productRouter.post('/:prodID/likes',auth,produtCtrl.like)
 productRouter.post('/:prodID/dislikes',auth,produtCtrl.dislike)
 
