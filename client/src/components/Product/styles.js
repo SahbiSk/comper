@@ -97,5 +97,6 @@ export default makeStyles((theme) => ({
     height: "5vh",
     alignItems: "center",
     fontSize: "20px",
+    zIndex: "100",
   },
 }));

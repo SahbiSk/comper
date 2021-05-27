@@ -8,6 +8,7 @@ import Footer from "./components/Footer/Footer";
 import Users from "./components/Users/Users";
 import { CssBaseline } from "@material-ui/core";
 import Cart from "./components/Cart/Cart";
+import Profile from "./components/Profile/Profile";
 
 const App = () => {
   return (
@@ -55,6 +56,17 @@ const App = () => {
             <>
               <Navbar {...props} />
               <Cart {...props} />
+              <Footer />
+            </>
+          )}
+        />{" "}
+        <Route
+          exact
+          path="/profile"
+          render={(props) => (
+            <>
+              <Navbar {...props} />
+              <Profile {...props} />
               <Footer />
             </>
           )}
