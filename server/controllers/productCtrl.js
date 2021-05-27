@@ -23,20 +23,17 @@ const handleError=(err)=>
 
 exports.addProd=(req,res,next)=>
 {
+      let imageProd
         console.log(req.user)
    
-    let img=[]
-
-    if (req.files){
-       req.files.forEach(el=> {
-            img.push(el.path)            
-        });
+        if (req.file)
+          imageProd = req.file.path;
        
-    }
+    
     
   
     req.body.owner=req.user._id
-    req.body.images=img
+    req.body.image=imageProd
     product.create(req.body).then(doc=> {
       
         res.status(201).json({doc})

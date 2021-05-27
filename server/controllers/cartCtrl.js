@@ -7,8 +7,8 @@ exports.addToCart = async (req, res) => {
       ? req.cookies.cart
       : { items: {}, totalProd: 0, totalPrice: 0 }
   );
-  console.log(req.cookies.cart);
-  console.log(cart);
+
+  
 
   try {
     let p = await produit.findById(req.params.prodID);
@@ -25,8 +25,8 @@ exports.addToCart = async (req, res) => {
 
       res.cookie("cart", cart, { httpOnly: true, maxAge: 86400000 }); //cart lasts one day
 
-      console.log(cart);
-      res.status(200).json({ message: "added succefully in your cart" });
+      console.log(req.cookies.cart);
+      res.status(200).json({ message: "added succefully in your cart",cart:req.cookies.cart });
     }
   } catch (err) {
     res.status(403).json(err.message);
