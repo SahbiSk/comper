@@ -8,19 +8,19 @@ import {
   Grid,
   Icon,
   TextField,
-  Typography
-} from '@material-ui/core';
-import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
-import ThumbDownIcon from '@material-ui/icons/ThumbDown';
-import React, { useState, useEffect } from 'react';
-import useStyles from './styles';
-import { useDispatch, useSelector } from 'react-redux';
-import Api from '../../redux/utils/Api';
-import { useCookies } from 'react-cookie';
-import { getProducts } from '../../redux/actions/productAction';
+  Typography,
+} from "@material-ui/core";
+import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
+import ThumbDownIcon from "@material-ui/icons/ThumbDown";
+import React, { useState, useEffect } from "react";
+import useStyles from "./styles";
+import { useDispatch, useSelector } from "react-redux";
+import Api from "../../redux/utils/Api";
+import { useCookies } from "react-cookie";
+import { getProducts } from "../../redux/actions/productAction";
 
 const Product = (props) => {
-  const server = 'http://localhost:5000/';
+  const server = "http://localhost:5000/";
   const dispatch = useDispatch();
 
   const [addedToCart, setAddedToCart] = useState(false);
@@ -29,46 +29,52 @@ const Product = (props) => {
   const product = useSelector((state) => state.productReducer).filter(
     (el) => el._id === id
   )[0];
-  const [cookies, setCookie, removeCookie] = useCookies(['cart']);
+  const [cookies, setCookie, removeCookie] = useCookies();
 
   console.log(cookies);
+  console.log("doc", document.cookie);
+
+  const options = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
   const comments = [
     {
       like: 10,
       dislike: 5,
-      content: 'hello world'
+      content: "hello world",
     },
     {
       like: 10,
       dislike: 5,
-      content: 'hello world'
+      content: "hello world",
     },
     {
       like: 10,
       dislike: 5,
-      content: 'hello world'
+      content: "hello world",
     },
     {
       like: 10,
       dislike: 5,
-      content: 'hello world'
+      content: "hello world",
     },
     {
       like: 10,
       dislike: 5,
-      content: 'hello world'
+      content: "hello world",
     },
     {
       like: 10,
       dislike: 5,
-      content: 'hello world'
-    }
+      content: "hello world",
+    },
   ];
   const addToCard = async () => {
     try {
-      const res = await Api.post(`/cart/addToCArt/${id}`, {
-        withCredentials: true
-      });
+      const res = await Api.post(`/cart/addToCArt/${id}`, options);
       console.log(res);
       dispatch(getProducts());
       setAddedToCart(true);
@@ -85,7 +91,7 @@ const Product = (props) => {
       {addedToCart && <div className={classes.notif}>Added to Cart !</div>}
       <Grid item className={classes.pic} xs={12} sm={6}>
         <CardActions
-          style={{ display: 'flex', justifyContent: 'space-around' }}
+          style={{ display: "flex", justifyContent: "space-around" }}
         >
           <Typography>price : {product.price} </Typography>
           <Typography>Quantity in stock : {product.quantity} </Typography>

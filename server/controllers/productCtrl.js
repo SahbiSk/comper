@@ -18,7 +18,7 @@ const handleError = (err) => {
 };
 
 exports.addProd = (req, res, next) => {
-  console.log(req.user);
+  console.log(req.body);
 
   let img = [];
 
@@ -27,8 +27,8 @@ exports.addProd = (req, res, next) => {
       img.push(el.path);
     });
   }
-
-  req.body.owner = req.user._id;
+  console.log(req.imgs);
+  // req.body.owner = req.user._id;
   req.body.images = img;
   product
     .create(req.body)

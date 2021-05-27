@@ -20,6 +20,9 @@ const Navbar = (props) => {
     }
   }, [value]);
 
+  console.log(value);
+  console.log(list);
+
   return (
     <nav className={classes.nav}>
       <div className={classes.title} onClick={() => props.history.push("/")}>
@@ -45,7 +48,7 @@ const Navbar = (props) => {
         <SearchIcon
           className={classes.searchIcon}
           onClick={() =>
-            value ? props.history.push(`/product/${value.id}`) : ""
+            value ? props.history.push(`/product/${value._id}`) : ""
           }
         />
       </div>
