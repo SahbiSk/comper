@@ -30,8 +30,9 @@ const ProductCard = ({ el, history }) => {
     }
     return t;
   };
-  
+
   const classes = useStyles();
+
   return (
     <Grid
       item

@@ -15,10 +15,13 @@ const ProductSection = () => {
   const data = useSelector((state) => state.productReducer);
   const [products, setProducts] = useState(data);
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.userReducer);
+  //console.log(user.token);
+  console.log("prod", products);
 
   useEffect(() => {
-    dispatch(getProducts());
-  }, [dispatch]);
+    dispatch(getProducts(user.token));
+  }, [dispatch, user.token]);
 
   useEffect(() => {
     if (category) {
@@ -26,7 +29,7 @@ const ProductSection = () => {
     } else {
       setProducts(data);
     }
-  }, [category,data]);
+  }, [category, data]);
 
   return (
     <div className={classes.mainContainer}>

@@ -5,23 +5,26 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import SearchIcon from "@material-ui/icons/Search";
 import useStyles from "./styles";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import GroupIcon from "@material-ui/icons/Group";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { logout } from "../../redux/actions/userActions";
 
 const Navbar = (props) => {
   const classes = useStyles();
   const [value, setValue] = useState();
   const list = useSelector((state) => state.productReducer);
   const user = useSelector((state) => state.userReducer);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     if (value) {
       localStorage.setItem("tag", value.tag);
     }
   }, [value]);
-
-  console.log(value);
-  console.log(list);
+  const handleLogout = () => {
+    dispatch(logout());
+    props.history.push("/");
+  };
 
   return (
     <nav className={classes.nav}>
@@ -60,6 +63,12 @@ const Navbar = (props) => {
       <Link to={`/${user.email ? "profile" : "auth"}`} className={classes.icon}>
         {`${user.email ? "Profile" : "Login"}`}
       </Link>
+      {user.userId && (
+        <ExitToAppIcon
+          onClick={() => handleLogout()}
+          className={classes.logout}
+        />
+      )}
     </nav>
   );
 };

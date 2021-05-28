@@ -11,9 +11,8 @@ const Profile = () => {
   const user = useSelector((state) => state.userReducer);
   const server = "http://localhost:5000/";
 
-  console.log(user);
   const { email, totalPnts, avatar, username } = user;
-  console.log(user);
+ 
   return (
     <Fragment>
       <br />

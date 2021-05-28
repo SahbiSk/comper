@@ -62,4 +62,11 @@ export default makeStyles((theme) => ({
       background: "var(--color-blue-dark)",
     },
   },
+  logout: {
+    background: "var(--color-blue-light)",
+    color: "white",
+    borderRadius: "50%",
+    transform: "scale(2)",
+    cursor: "pointer",
+  },
 }));

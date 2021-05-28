@@ -16,14 +16,15 @@ import React, { useState, useEffect } from "react";
 import useStyles from "./styles";
 import { useDispatch, useSelector } from "react-redux";
 import Api from "../../redux/utils/Api";
-import { useCookies } from "react-cookie";
-import { getProducts } from "../../redux/actions/productAction";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import { dislike, getProducts, like } from "../../redux/actions/productAction";
 
 const Product = (props) => {
   const server = "http://localhost:5000/";
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.userReducer);
+  // console.log(user)
 
   const [addedToCart, setAddedToCart] = useState(false);
   const classes = useStyles();
@@ -31,18 +32,24 @@ const Product = (props) => {
   const product = useSelector((state) => state.productReducer).filter(
     (el) => el._id === id
   )[0];
-  const [cookies, setCookie, removeCookie] = useCookies();
-  const [index, setIndex] = useState(0);
 
-  console.log(cookies);
-  console.log("doc", document.cookie);
+  const [index, setIndex] = useState(0);
 
   const options = {
     headers: {
       "Content-Type": "application/json",
     },
   };
-
+  const handleLikeOrDislike = (type) => {
+    if (user.email !== "") {
+      type === "like"
+        ? dispatch(like(product._id, user.token))
+        : dispatch(dislike(product._id, user.token));
+      dispatch(getProducts(user.token));
+    } else {
+      props.history.push("/auth");
+    }
+  };
   const comments = [
     {
       like: 10,
@@ -88,7 +95,7 @@ const Product = (props) => {
   useEffect(() => {
     setTimeout(() => setAddedToCart(false), 2500);
   }, [addedToCart]);
-  console.log(index);
+
   return (
     <Grid className={classes.container} container>
       {addedToCart && <div className={classes.notif}>Added to Cart !</div>}
@@ -112,22 +119,28 @@ const Product = (props) => {
 
         <ChevronLeftIcon
           className={classes.left}
-          onClick={() => setIndex(index===0 ? 1 : 0)}
+          onClick={() => setIndex(index === 0 ? 1 : 0)}
         />
         <ChevronRightIcon
           className={classes.right}
-          onClick={() => setIndex(index===0 ? 1 : 0)}
+          onClick={() => setIndex(index === 0 ? 1 : 0)}
         />
         <Card className={classes.productImg}>
           <CardContent className={classes.cardContent}>
             #{product.category}
           </CardContent>
           <CardActions className={classes.cardActions}>
-            <Icon className={`${classes.likeIcon} ${classes.icon} `}>
+            <Icon
+              className={`${classes.likeIcon} ${classes.icon} `}
+              onClick={() => handleLikeOrDislike("like")}
+            >
               {product.dislike.length}
               <ThumbUpAltIcon />
             </Icon>
-            <Icon className={`${classes.dislikeIcon} ${classes.icon} `}>
+            <Icon
+              className={`${classes.dislikeIcon} ${classes.icon} `}
+              onClick={() => handleLikeOrDislike("dislike")}
+            >
               {product.like.length}
               <ThumbDownIcon />
             </Icon>

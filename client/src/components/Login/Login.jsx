@@ -9,6 +9,7 @@ import React, { useState } from "react";
 import useStyles from "./styles";
 import { useDispatch, useSelector } from "react-redux";
 import { signIn, signUp } from "../../redux/actions/userActions";
+import { Redirect } from "react-router";
 
 const Login = (props) => {
   const classes = useStyles();
@@ -24,13 +25,12 @@ const Login = (props) => {
   const [login, setLogin] = useState(false);
   const user = useSelector((state) => state.userReducer);
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
     login ? dispatch(signIn(data)) : dispatch(signUp({ ...data, avatar }));
   };
-  if (user.email) {
-    props.history.push("/");
+  if (user.email !== "") {
+    return <Redirect to="/" />;
   }
 
   return (
@@ -66,19 +66,40 @@ const Login = (props) => {
         >
           {login ? "Welcome Back!" : "Join Us!"}
         </Typography>
-        {Object.keys(data).map((el) => (
-          <TextField
-            type={el}
-            key={el}
-            value={data[el]}
-            placeholder={`Enter your ${el} `}
-            label={el}
-            required
-            variant="outlined"
-            className={classes.field}
-            onChange={(e) => setData({ ...data, [el]: e.target.value })}
-          />
-        ))}
+        {Object.keys(data).map((el) => {
+          if (login) {
+            if (el !== "username") {
+              return (
+                <TextField
+                  type={el}
+                  key={el}
+                  value={data[el]}
+                  placeholder={`Enter your ${el} `}
+                  label={el}
+                  required
+                  variant="outlined"
+                  className={classes.field}
+                  onChange={(e) => setData({ ...data, [el]: e.target.value })}
+                />
+              );
+            }
+          } else {
+            return (
+              <TextField
+                type={el}
+                key={el}
+                value={data[el]}
+                placeholder={`Enter your ${el} `}
+                label={el}
+                required
+                variant="outlined"
+                className={classes.field}
+                onChange={(e) => setData({ ...data, [el]: e.target.value })}
+              />
+            );
+          }
+          return null
+        })}
         {!login && (
           <IconButton>
             <input
@@ -94,7 +115,6 @@ const Login = (props) => {
           {login ? "Login" : "Signup"}
         </Button>
       </Container>
-      {/* <img src={"http://localhost:5000/" + user.avatar} /> */}
     </>
   );
 };

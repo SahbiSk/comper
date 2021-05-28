@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Product from "./components/Product/Product";
 import ProductSection from "./components/ProductSection/ProductSection";
@@ -9,8 +14,10 @@ import Users from "./components/Users/Users";
 import { CssBaseline } from "@material-ui/core";
 import Cart from "./components/Cart/Cart";
 import Profile from "./components/Profile/Profile";
+import { useSelector } from "react-redux";
 
 const App = () => {
+  const user = useSelector((state) => state.userReducer);
   return (
     <Router>
       <CssBaseline />
@@ -66,12 +73,13 @@ const App = () => {
           render={(props) => (
             <>
               <Navbar {...props} />
-              <Profile {...props} />
+              {user.userId ? <Profile {...props} /> : <Redirect to="/auth" />}
               <Footer />
             </>
           )}
         />
       </Switch>
+      <Redirect to="/" />
     </Router>
   );
 };
