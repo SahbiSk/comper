@@ -18,6 +18,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Api from "../../redux/utils/Api";
 import { useCookies } from "react-cookie";
 import { getProducts } from "../../redux/actions/productAction";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 
 const Product = (props) => {
   const server = "http://localhost:5000/";
@@ -30,6 +32,7 @@ const Product = (props) => {
     (el) => el._id === id
   )[0];
   const [cookies, setCookie, removeCookie] = useCookies();
+  const [index, setIndex] = useState(0);
 
   console.log(cookies);
   console.log("doc", document.cookie);
@@ -85,7 +88,7 @@ const Product = (props) => {
   useEffect(() => {
     setTimeout(() => setAddedToCart(false), 2500);
   }, [addedToCart]);
-
+  console.log(index);
   return (
     <Grid className={classes.container} container>
       {addedToCart && <div className={classes.notif}>Added to Cart !</div>}
@@ -102,9 +105,18 @@ const Product = (props) => {
           )}
         </CardActions>
         <img
-          src={server + product.images[0]}
+          src={server + product.images[index]}
           className={classes.img}
           alt="img"
+        />
+
+        <ChevronLeftIcon
+          className={classes.left}
+          onClick={() => setIndex(index===0 ? 1 : 0)}
+        />
+        <ChevronRightIcon
+          className={classes.right}
+          onClick={() => setIndex(index===0 ? 1 : 0)}
         />
         <Card className={classes.productImg}>
           <CardContent className={classes.cardContent}>

@@ -99,4 +99,30 @@ export default makeStyles((theme) => ({
     fontSize: "20px",
     zIndex: "100",
   },
+  left: {
+    background: "var(--color-blue-light)",
+    color: "white",
+    borderRadius: "50%",
+    position: "absolute",
+    top: "70%",
+    left: "5%",
+    transform: "scale(3)",
+    cursor: "pointer",
+    "&:hover": {
+      background: "var(--color-blue-dark)",
+    },
+  },
+  right: {
+    color: "white",
+    borderRadius: "50%",
+    position: "absolute",
+    top: "70%",
+    background: "var(--color-blue-light)",
+    transform: "scale(3)",
+    cursor: "pointer",
+    left: "43%",
+    "&:hover": {
+      background: "var(--color-blue-dark)",
+    },
+  },
 }));

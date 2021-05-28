@@ -16,7 +16,8 @@ const AddProduct = () => {
   });
   const classes = useStyles();
   const owner = useSelector((state) => state.userReducer).userId;
-  const [imgs, setImgs] = useState("");
+  const [file1, setfile1] = useState(null);
+  const [file2, setfile2] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const dispatch = useDispatch();
 
@@ -26,7 +27,7 @@ const AddProduct = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const data = { owner, ...product, imgs };
+    const data = { owner, ...product, file1, file2 };
     data.price = parseFloat(data.price);
     data.quantity = parseInt(data.quantity);
     if (data.img === "") {
@@ -38,7 +39,7 @@ const AddProduct = () => {
   useEffect(() => {
     setTimeout(() => setErrorMsg(null), 2500);
   }, [errorMsg]);
-  
+
   return (
     <Container
       component="form"
@@ -62,16 +63,24 @@ const AddProduct = () => {
       ))}
       <Button component="label" className={classes.imgIcon} variant="contained">
         <ImageIcon />
-        <Typography>Add image</Typography>
+        <Typography>Add image1</Typography>
         <input
           type="file"
           hidden
           name="image"
-          multiple
-          onChange={(e) => setImgs(e.target.files)}
+          onChange={(e) => setfile1(e.target.files[0])}
+        />
+      </Button>{" "}
+      <Button component="label" className={classes.imgIcon} variant="contained">
+        <ImageIcon />
+        <Typography>Add image2</Typography>
+        <input
+          type="file"
+          hidden
+          name="image"
+          onChange={(e) => setfile2(e.target.files[0])}
         />
       </Button>
-
       <Button variant="outlined" className={classes.btn} type="submit">
         Add new Product
       </Button>

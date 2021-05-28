@@ -6,7 +6,7 @@ const upload=require('../middlewares/multerConfig')
 
 
 
-productRouter.post('/',auth,upload.fields([
+productRouter.post('/',upload.fields([
     { name: 'file1'},
     { name: 'file2' }
   ]),produtCtrl.addProd)
