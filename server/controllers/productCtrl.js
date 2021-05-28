@@ -23,19 +23,22 @@ const handleError=(err)=>
 
 exports.addProd=(req,res,next)=>
 {
-        console.log(req.user)
-   
- 
-
-    if (req.file)
-  
-     req.body.image=req.file.path
        
-    
-    
-  
-    req.body.owner=req.user._id
    
+    let img=[]
+
+    if (req.files){
+     
+    req.files.forEach(element => {
+     img.push(element.path)
+      
+    });
+       
+    }
+    console.log(img)
+  console.log(req.user)
+    req.body.owner=req.user._id
+    req.body.images=img
     product.create(req.body).then(doc=> {
       
         res.status(201).json({doc})
@@ -49,55 +52,74 @@ exports.addProd=(req,res,next)=>
 exports.getProd=async(req,res)=>
 {
     let token
-    res.cookie("cart", cart, { httpOnly: true, maxAge: 86400000 }); //cart lasts one day
-    if(req.headers.authorization && req.headers.authorization.startsWith("Bearer"))
-    {
+  
+ 
 
-     //logged user
-    token=req.headers.authorization.split(" ")[1]
+    
    
   try {
-    const tokenData = jwt.verify(token, config.secretKey);
+
+if(req.headers.authorization)
+{
+
+    token=req.headers.authorization.split(" ")[1]
+    const tokenData = jwt.verify(token,config.secretKey);
+
     let currentUSer = await userModel.findById(tokenData.userId).populate('wishlist');
-  
-
-
    
 
 
   if(currentUSer && getCategory(currentUSer))
   
   {
+    
+    
 
   
-   
+  
  let req1= await product.find({tag:getCategory(currentUSer)}). sort({ rating: -1 }).lean()
  let req2= await product.find( { tag: { $ne: getCategory(currentUSer)} } ).sort({ rating: -1 }).lean()
 
  if( req2 && req1)
  {
- let querry=[...req2,...req1]
-res.status(200).json(querry)
+   
+ let querry=[...req1,...req2]
+return res.status(200).json(querry)
  }
     
 
   
-
-
 }
   
-}
-  
+if(!getCategory(currentUSer)) // wishlist IsEmpty
+{
+  await product.find().populate('owner','username avatar totalPnts')
+  .populate('comments.author','username avatar totalPnts')
+  .then((docs)=>{
+      docs.sort((a,b)=>
+      {
+         let db=new Date(b.date)
+          let da=new Date(a.date)
+          return db-da
 
-  catch(err)
-  {
-      console.log(err)
-  }
+        
+     
+     
+      })
+      
+      return res.status(201).json(docs)
+   
     
+  })
+  .catch((err)=>console.log(err))
+}
 
-  }
 
-else //visitor
+
+}    
+  
+    
+else //visitor 
   
 {
 
@@ -108,7 +130,19 @@ else //visitor
            await product.find().populate('owner','username avatar totalPnts')
            .populate('comments.author','username avatar totalPnts')
            .then((docs)=>{
-               res.status(201).json(docs)
+               docs.sort((a,b)=>
+               {
+                  let db=new Date(b.date)
+                   let da=new Date(a.date)
+                   return db-da
+
+                 
+              
+              
+               })
+               
+               return res.status(201).json(docs)
+            
              
            })
            .catch((err)=>console.log(err))
@@ -117,6 +151,16 @@ else //visitor
           
 
 }
+
+  }
+
+
+  catch(err)
+  {
+    console.log(err)
+  }
+
+
 
 }
 
@@ -142,9 +186,10 @@ exports.like=async(req,res)=>
 
         prod.like.push(req.user._id)
 
-         await prod.save()
+        let p= await prod.save()
+        if(p)
 
-         return res.status(200).json({message:'produit liked'})
+         return res.status(200).json({message:'produit liked',product:p})
      
   
         
@@ -186,9 +231,10 @@ exports.dislike=async(req,res)=>
 
         prod.dislike.push(req.user._id)
 
-      await prod.save()
+        let p= await prod.save()
+        if(p)
 
-      return res.status(200).json({message:'produit disliked'})
+         return res.status(200).json({message:'produit disliked',product:p})
     
     
     }
