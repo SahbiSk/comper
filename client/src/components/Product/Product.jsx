@@ -43,8 +43,8 @@ const Product = (props) => {
   const handleLikeOrDislike = (type) => {
     if (user.email !== "") {
       type === "like"
-        ? dispatch(like(product._id, user.token))
-        : dispatch(dislike(product._id, user.token));
+        ? dispatch(like(product._id, user))
+        : dispatch(dislike(product._id, user));
       dispatch(getProducts(user.token));
     } else {
       props.history.push("/auth");
@@ -134,14 +134,14 @@ const Product = (props) => {
               className={`${classes.likeIcon} ${classes.icon} `}
               onClick={() => handleLikeOrDislike("like")}
             >
-              {product.dislike.length}
+              {product.like.length}
               <ThumbUpAltIcon />
             </Icon>
             <Icon
               className={`${classes.dislikeIcon} ${classes.icon} `}
               onClick={() => handleLikeOrDislike("dislike")}
             >
-              {product.like.length}
+              {product.dislike.length}
               <ThumbDownIcon />
             </Icon>
           </CardActions>

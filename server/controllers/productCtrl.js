@@ -94,7 +94,10 @@ exports.getProd = async (req, res) => {
 
 exports.like = async (req, res) => {
   try {
+   // console.log(req.body);
     let prod = await product.findById(req.params.prodID);
+    req.user = req.body;
+    req.user._id = req.body.userId;
 
     if (prod) {
       if (prod.like.indexOf(req.user._id) >= 0)
@@ -108,9 +111,9 @@ exports.like = async (req, res) => {
 
       prod.like.push(req.user._id);
 
-      await prod.save();
+      let p = await prod.save();
 
-      return res.status(200).json({ message: "produit liked" });
+      return res.status(200).json({ message: "produit liked", product: p });
     }
 
     throw new Error("product not found");
@@ -120,6 +123,9 @@ exports.like = async (req, res) => {
 };
 
 exports.dislike = async (req, res) => {
+ // console.log(req.body);
+  req.user = req.body;
+  req.user._id = req.body.userId;
   try {
     let prod = await product.findById(req.params.prodID);
 
@@ -136,9 +142,9 @@ exports.dislike = async (req, res) => {
 
       prod.dislike.push(req.user._id);
 
-      await prod.save();
+      let p = await prod.save();
 
-      return res.status(200).json({ message: "produit disliked" });
+      return res.status(200).json({ message: "produit disliked", product: p });
     }
 
     throw new Error("product not found");

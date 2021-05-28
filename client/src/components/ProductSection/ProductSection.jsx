@@ -16,8 +16,6 @@ const ProductSection = () => {
   const [products, setProducts] = useState(data);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userReducer);
-  //console.log(user.token);
-  console.log("prod", products);
 
   useEffect(() => {
     dispatch(getProducts(user.token));

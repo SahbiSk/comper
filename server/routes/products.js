@@ -10,8 +10,8 @@ productRouter.post('/',upload.fields([
     { name: 'file1'},
     { name: 'file2' }
   ]),produtCtrl.addProd)
-productRouter.post('/:prodID/likes',auth,produtCtrl.like)
-productRouter.post('/:prodID/dislikes',auth,produtCtrl.dislike)
+productRouter.post('/:prodID/likes',produtCtrl.like)
+productRouter.post('/:prodID/dislikes',produtCtrl.dislike)
 
 
 productRouter.get('/',produtCtrl.getProd)
