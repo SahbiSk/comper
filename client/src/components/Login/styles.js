@@ -47,4 +47,8 @@ export default makeStyles((theme) => ({
     background: "red",
     width: "20px",
   },
+  cameraIcon: {
+    transform: "scale(1.5)",
+    color: "var(--color-blue-light)",
+  },
 }));

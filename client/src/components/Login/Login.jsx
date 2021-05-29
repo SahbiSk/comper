@@ -1,7 +1,6 @@
 import {
   Button,
   Container,
-  IconButton,
   TextField,
   Typography,
 } from "@material-ui/core";
@@ -10,8 +9,9 @@ import useStyles from "./styles";
 import { useDispatch, useSelector } from "react-redux";
 import { signIn, signUp } from "../../redux/actions/userActions";
 import { Redirect } from "react-router";
+import CameraAltIcon from "@material-ui/icons/CameraAlt";
 
-const Login = (props) => {
+const Login = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -98,18 +98,20 @@ const Login = (props) => {
               />
             );
           }
-          return null
+          return null;
         })}
         {!login && (
-          <IconButton>
+          <Button component="label">
+            <CameraAltIcon className={classes.cameraIcon} />
             <input
               className={classes.upload}
               type="file"
               value={data.avatar}
               onChange={(e) => setAvatar(e.target.files[0])}
               required
-            />
-          </IconButton>
+              hidden
+            />{" "}
+          </Button>
         )}
         <Button size="large" type="submit" className={classes.button}>
           {login ? "Login" : "Signup"}
