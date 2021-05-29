@@ -5,7 +5,6 @@ const prod=require('../models/product')
 exports.addFavorite=(req,res)=>
 {
 
-
   prod.findById(req.params.productID).then(p=>
     {
 
