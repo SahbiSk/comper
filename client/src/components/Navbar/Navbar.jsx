@@ -16,11 +16,13 @@ const Navbar = (props) => {
   const list = useSelector((state) => state.productReducer);
   const user = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
+
   useEffect(() => {
     if (value) {
       localStorage.setItem("tag", value.tag);
     }
   }, [value]);
+  
   const handleLogout = () => {
     dispatch(logout());
     props.history.push("/");
